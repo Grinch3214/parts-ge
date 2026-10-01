@@ -3,6 +3,9 @@
 export const VIN_LENGTH = 17
 export const MAX_FILE_SIZE = 10 * 1024 * 1024
 export const MAX_PART_PHOTOS = 5
+// Whole request limit: Netlify Functions accept bodies up to 6 MB. Photos are compressed
+// in the browser first (image-compress.js), so this is rarely reached.
+export const MAX_UPLOAD_BYTES = 5.5 * 1024 * 1024
 
 // People often type a VIN on a Cyrillic keyboard layout: map look-alike letters to Latin
 const CYRILLIC_LOOKALIKES = {

@@ -52,19 +52,34 @@ src/
 
 ## Форма и бэкенд
 
-Схема: сайт → серверный эндпоинт → Telegram-бот → группа. **Токен бота живёт только на сервере.**
+Схема: сайт → `/api/request` (Netlify Function) → Telegram-бот → группа. **Токен бота живёт только на сервере.**
 
-Контракт эндпоинта (`POST /api/request`, `multipart/form-data`) описан в `server/mock-api.js`:
-`200 { ok, id }`, `422 { ok: false, errors }`, `429 { error: 'rateLimit' }`.
-Поля: `mode`, `vin` | `docPhoto`, `part`, `contactMethod`, `contact`, `car`, `partNumber`, `preference`,
-`name`, `partPhotos[]`, `lang`, `page` + антиспам: `website` (honeypot), `_t` (время открытия формы),
-`cf-turnstile-response` (если включён Turnstile).
+| Файл | Роль |
+| --- | --- |
+| `server/handle-request.js` | Вся логика эндпоинта: лимит, антиспам, Turnstile, валидация, номер заявки. Там же описан контракт ответов |
+| `server/telegram.js` | Карточка заявки + фото в группу через Bot API |
+| `netlify/functions/request.mjs` | Обёртка для Netlify (production) |
+| `server/mock-api.js` | То же для `npm run dev` / `preview`. Без секретов — только лог в консоль |
 
-Переменные окружения фронтенда (`.env.local`):
+Фото сжимаются в браузере (до 1920px, JPEG) — лимит тела запроса у Netlify 6 МБ.
 
-```bash
-VITE_API_ENDPOINT=https://…/api/request   # по умолчанию /api/request
-VITE_TURNSTILE_SITE_KEY=…                 # пусто — Turnstile не загружается
-```
+### Переменные окружения
+
+Локально — `.env.local` (шаблон: `.env.example`), на Netlify — Site configuration → Environment variables.
+
+| Переменная | Где | Зачем |
+| --- | --- | --- |
+| `TELEGRAM_BOT_TOKEN` | сервер | токен от @BotFather |
+| `TELEGRAM_CHAT_ID` | сервер | ID группы (`npm run tg:chat-id`) |
+| `TURNSTILE_SECRET_KEY` | сервер | необязательно, проверка капчи |
+| `VITE_TURNSTILE_SITE_KEY` | браузер | необязательно, показ капчи |
+| `SITE_URL` | сборка | необязательно; на Netlify подставляется сам |
+
+`npm run tg:test` — отправить тестовую заявку в группу.
+
+### Деплой (Netlify)
+
+Настройки сборки — в `netlify.toml`. Подключить репозиторий в Netlify → задать переменные → каждый `git push` деплоит.
+Пока сайт открыт не на основном домене (`site.json → url`), страницы помечаются `noindex`.
 
 Черновик формы хранится в `localStorage` (кроме файлов) и очищается после успешной отправки.

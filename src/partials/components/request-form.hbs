@@ -5,52 +5,25 @@
 			<p class="request__subtitle">{{t.form.subtitle}}</p>
 		</div>
 
-		{{!-- 1. Vehicle: VIN or a photo of the registration certificate --}}
-		<fieldset class="request__group">
-			<legend class="sr-only">{{t.form.vehicleLegend}}</legend>
-
-			<div class="segmented">
-				<label class="segmented__item">
-					<input type="radio" name="mode" value="vin" checked data-mode>
-					<span>{{> components/icon name="scan"}}{{t.form.modeVin}}</span>
-				</label>
-				<label class="segmented__item">
-					<input type="radio" name="mode" value="photo" data-mode>
-					<span>{{> components/icon name="camera"}}{{t.form.modePhoto}}</span>
-				</label>
+		{{!-- 1. Vehicle VIN --}}
+		<div class="field" data-field="vin">
+			<div class="field__top">
+				<label class="field__label" for="f-vin">{{t.form.vinLabel}}</label>
+				<button class="field__help" type="button" aria-expanded="false" aria-controls="vin-where" data-vin-help>{{t.form.vinWhere}}</button>
 			</div>
-
-			<div class="field" data-field="vin">
-				<div class="field__top">
-					<label class="field__label" for="f-vin">{{t.form.vinLabel}}</label>
-					<button class="field__help" type="button" aria-expanded="false" aria-controls="vin-where" data-vin-help>{{t.form.vinWhere}}</button>
-				</div>
-				<div class="field__control">
-					<input class="input input--vin" id="f-vin" name="vin" type="text" inputmode="text"
-						autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false"
-						maxlength="24" placeholder="{{t.form.vinPlaceholder}}" aria-describedby="vin-counter vin-error">
-					<span class="field__counter" id="vin-counter" data-vin-counter>0/17</span>
-				</div>
-				<p class="field__hint" id="vin-where" hidden>{{t.form.vinWhereText}}</p>
-				<p class="field__error" id="vin-error" data-error></p>
+			<div class="field__control">
+				<input class="input input--vin" id="f-vin" name="vin" type="text" inputmode="text"
+					autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false"
+					maxlength="24" placeholder="{{t.form.vinPlaceholder}}" aria-describedby="vin-counter vin-error">
+				<span class="field__counter" id="vin-counter" data-vin-counter>0/17</span>
 			</div>
-
-			<div class="field" data-field="docPhoto" hidden>
-				<span class="field__label" id="doc-label">{{t.form.docLabel}}</span>
-				<div class="upload" data-upload="doc">
-					<label class="upload__drop">
-						<input class="sr-only" type="file" name="docPhoto" accept="image/*,application/pdf" aria-labelledby="doc-label" aria-describedby="doc-hint doc-error">
-						<span class="upload__icon">{{> components/icon name="camera"}}</span>
-						<span class="upload__text">
-							{{t.form.docButton}}
-							<span class="upload__hint" id="doc-hint">{{t.form.docHint}}</span>
-						</span>
-					</label>
-					<ul class="upload__list" data-files></ul>
-				</div>
-				<p class="field__error" id="doc-error" data-error></p>
-			</div>
-		</fieldset>
+			<p class="field__hint" id="vin-where" hidden>{{t.form.vinWhereText}}</p>
+			<p class="field__error" id="vin-error" data-error></p>
+			<p class="field__note">
+				{{t.form.noVin}}
+				<a href="{{links.whatsapp}}" target="_blank" rel="noopener">{{t.form.noVinLink}}</a>
+			</p>
+		</div>
 
 		{{!-- 2. The part --}}
 		<div class="field" data-field="part">

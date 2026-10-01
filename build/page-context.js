@@ -24,7 +24,10 @@ export function createPageContext(root) {
 		const lang = localeFromPagePath(pagePath)
 		const site = readJson(path.join(root, 'src/data/site.json'))
 		const t = readJson(path.join(root, `src/i18n/${lang}.json`))
-		const base = site.url.replace(/\/$/, '')
+		// On a Netlify test domain use its own URL (so OG previews work) and keep it out of search
+		const deployUrl = process.env.SITE_URL || (process.env.NETLIFY === 'true' ? process.env.URL : '')
+		const base = (deployUrl || site.url).replace(/\/$/, '')
+		const indexable = base === site.url.replace(/\/$/, '')
 		const canonical = base + localePath(lang)
 
 		const locales = LOCALES.map(l => ({
@@ -69,7 +72,8 @@ export function createPageContext(root) {
 		return {
 			lang,
 			t,
-			site,
+			site: { ...site, url: base },
+			indexable,
 			links,
 			locales,
 			canonical,

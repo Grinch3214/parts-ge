@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tg:chat-id": "node --env-file=.env.local scripts/telegram-chat-id.mjs",
+    "tg:test": "node --env-file=.env.local scripts/telegram-test.mjs"
   },
   "browserslist": [
     "last 2 versions",

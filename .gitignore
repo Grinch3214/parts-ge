@@ -26,3 +26,6 @@ GUIDE.md
 *.njsproj
 *.sln
 *.sw?
+
+# Netlify CLI
+.netlify

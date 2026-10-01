@@ -20,15 +20,33 @@
     "title": "Car parts in Batumi",
     "lead": "Send your VIN and tell us which part you need. We’ll find the right options and send you the price and delivery time.",
     "trust": [
-      { "icon": "clock", "text": "We usually reply within 30 minutes" },
-      { "icon": "shield", "text": "No payment until you approve the price" }
+      {
+        "icon": "clock",
+        "text": "We usually reply within 30 minutes"
+      },
+      {
+        "icon": "shield",
+        "text": "No payment until you approve the price"
+      }
     ],
     "vin": {
       "caption": "What your VIN tells us",
       "groups": [
-        { "range": "1–3", "code": "WMI", "name": "Make and country" },
-        { "range": "4–9", "code": "VDS", "name": "Model, body, engine" },
-        { "range": "10–17", "code": "VIS", "name": "Year, plant, serial number" }
+        {
+          "range": "1–3",
+          "code": "WMI",
+          "name": "Make and country"
+        },
+        {
+          "range": "4–9",
+          "code": "VDS",
+          "name": "Model, body, engine"
+        },
+        {
+          "range": "10–17",
+          "code": "VIS",
+          "name": "Year, plant, serial number"
+        }
       ],
       "footer": "So we match the part to your exact trim — not to something that “looks similar”."
     }
@@ -36,16 +54,12 @@
   "form": {
     "title": "Part request",
     "subtitle": "Three fields — we’ll figure out the rest",
-    "vehicleLegend": "Vehicle",
-    "modeVin": "VIN",
-    "modePhoto": "Registration photo",
     "vinLabel": "Vehicle VIN",
     "vinPlaceholder": "e.g. JTDKN3DU5A0123456",
     "vinWhere": "Where is my VIN?",
     "vinWhereText": "On the vehicle registration certificate, under the windshield on the driver’s side, or on the driver’s door pillar.",
-    "docLabel": "Registration certificate photo",
-    "docButton": "Take a photo or choose a file",
-    "docHint": "Make sure the VIN is visible. Photo or PDF up to 10 MB",
+    "noVin": "No VIN at hand?",
+    "noVinLink": "Message us on WhatsApp",
     "partLabel": "Which part do you need?",
     "partPlaceholder": "e.g. front left headlight, front bumper, brake pads",
     "contactLegend": "Where should we send the options?",
@@ -90,10 +104,9 @@
     "note": "We usually reply within 30 minutes. You don’t pay anything until you approve the price.",
     "remove": "Remove",
     "errors": {
-      "vinRequired": "Enter the VIN or switch to a registration photo",
+      "vinRequired": "Enter the vehicle VIN",
       "vinLength": "A VIN has 17 characters, you’ve entered {n}",
       "vinChars": "A VIN never contains I, O or Q. It’s most likely 1 or 0",
-      "photoRequired": "Add a photo of the registration certificate with the VIN visible",
       "partRequired": "Tell us which part you need",
       "contactRequired": "Leave a number so we can send you the options",
       "contactInvalid": "Please check the number — some digits seem to be missing",
@@ -101,6 +114,7 @@
       "fileTooBig": "The file is larger than 10 MB — please choose a smaller photo",
       "fileType": "Photos or PDF files only",
       "tooManyFiles": "You can add up to 5 photos",
+      "filesTooLarge": "The photos are too large to send. Remove some of them or send them to us on WhatsApp after the request.",
       "summary": "Please check the highlighted fields.",
       "network": "We couldn’t send your request. Check your connection and try again — your answers are saved.",
       "rateLimit": "Too many requests in a row. Please wait a couple of minutes or message us on WhatsApp.",
@@ -123,23 +137,58 @@
     "eyebrow": "How it works",
     "title": "Three steps from VIN to part",
     "steps": [
-      { "num": "01", "icon": "scan", "title": "Send your VIN", "text": "Enter the VIN or send a photo of the registration certificate and tell us what you need." },
-      { "num": "02", "icon": "search", "title": "We find options", "text": "We check our suppliers and pick what’s available: OEM, aftermarket, used." },
-      { "num": "03", "icon": "package", "title": "Get your part", "text": "We agree on the price, you pay, and we arrange delivery." }
+      {
+        "num": "01",
+        "icon": "scan",
+        "title": "Send your VIN",
+        "text": "Enter the VIN and tell us which part you need."
+      },
+      {
+        "num": "02",
+        "icon": "search",
+        "title": "We find options",
+        "text": "We check our suppliers and pick what’s available: OEM, aftermarket, used."
+      },
+      {
+        "num": "03",
+        "icon": "package",
+        "title": "Get your part",
+        "text": "We agree on the price, you pay, and we arrange delivery."
+      }
     ]
   },
   "benefits": {
     "eyebrow": "Why it’s easier with us",
     "title": "The right part, with no surprises in the price",
     "items": [
-      { "icon": "scan", "title": "Matched by VIN", "text": "A part for your exact trim, not one that “looks similar”." },
-      { "icon": "layers", "title": "OEM and aftermarket", "text": "We show you both — choose by price and delivery time." },
-      { "icon": "globe", "title": "Turkey, UAE, Europe", "text": "We search beyond Batumi — with suppliers in several countries." },
-      { "icon": "truck", "title": "Delivery in Batumi", "text": "We bring the part to the city and agree on time and place." }
+      {
+        "icon": "scan",
+        "title": "Matched by VIN",
+        "text": "A part for your exact trim, not one that “looks similar”."
+      },
+      {
+        "icon": "layers",
+        "title": "OEM and aftermarket",
+        "text": "We show you both — choose by price and delivery time."
+      },
+      {
+        "icon": "globe",
+        "title": "Turkey, UAE, Europe",
+        "text": "We search beyond Batumi — with suppliers in several countries."
+      },
+      {
+        "icon": "truck",
+        "title": "Delivery in Batumi",
+        "text": "We bring the part to the city and agree on time and place."
+      }
     ],
     "trust": {
       "title": "No payment until you approve the price",
-      "flow": ["We check availability", "We quote price and time", "You decide"],
+      "flow": [
+        "We check availability",
+        "We quote price and time",
+        "You decide"
+      ],
       "note": "You pay only after you say “yes”. If we got the VIN match wrong, we’ll replace the part or refund you."
     }
   },
@@ -148,10 +197,30 @@
     "title": "Where parts come from and how long it takes",
     "lead": "Timing depends on where the part is found. We usually offer a few options — faster or cheaper.",
     "items": [
-      { "code": "BAT", "name": "Batumi", "time": "Today–tomorrow", "note": "if a local supplier has it in stock" },
-      { "code": "TR", "name": "Turkey", "time": "1–3 days", "note": "wide choice of OEM and aftermarket" },
-      { "code": "AE", "name": "UAE", "time": "5–10 days", "note": "parts for US and Asian cars" },
-      { "code": "EU", "name": "Europe", "time": "On request", "note": "rare and European parts" }
+      {
+        "code": "BAT",
+        "name": "Batumi",
+        "time": "Today–tomorrow",
+        "note": "if a local supplier has it in stock"
+      },
+      {
+        "code": "TR",
+        "name": "Turkey",
+        "time": "1–3 days",
+        "note": "wide choice of OEM and aftermarket"
+      },
+      {
+        "code": "AE",
+        "name": "UAE",
+        "time": "5–10 days",
+        "note": "parts for US and Asian cars"
+      },
+      {
+        "code": "EU",
+        "name": "Europe",
+        "time": "On request",
+        "note": "rare and European parts"
+      }
     ],
     "note": "Times are estimates and depend on the supplier. We confirm the exact time together with the price — before you pay."
   },
@@ -160,19 +229,45 @@
     "title": "Bought on Copart or IAAI?",
     "text": "We help find parts for cars from US auctions. US-spec versions often differ in lights, bumpers, sensors and electrics — so we match by VIN, not by model name.",
     "modelsLabel": "We often source parts for",
-    "models": ["Toyota Camry", "Toyota Prius", "Toyota RAV4", "Toyota Corolla", "Lexus ES", "Lexus RX", "Lexus NX"],
+    "models": [
+      "Toyota Camry",
+      "Toyota Prius",
+      "Toyota RAV4",
+      "Toyota Corolla",
+      "Lexus ES",
+      "Lexus RX",
+      "Lexus NX"
+    ],
     "more": "and other makes",
     "cta": "Find my part",
     "card": {
       "label": "Sample request",
       "rows": [
-        { "k": "Auction", "v": "Copart" },
-        { "k": "Car", "v": "Toyota Camry SE, 2018" },
-        { "k": "Damage", "v": "Front end" },
-        { "k": "VIN", "v": "4T1B11HK•JU••••••", "mono": true }
+        {
+          "k": "Auction",
+          "v": "Copart"
+        },
+        {
+          "k": "Car",
+          "v": "Toyota Camry SE, 2018"
+        },
+        {
+          "k": "Damage",
+          "v": "Front end"
+        },
+        {
+          "k": "VIN",
+          "v": "4T1B11HK•JU••••••",
+          "mono": true
+        }
       ],
       "needsLabel": "Parts we’re sourcing",
-      "needs": ["Left headlight (LED)", "Front bumper", "Radiator", "Bumper reinforcement"]
+      "needs": [
+        "Left headlight (LED)",
+        "Front bumper",
+        "Radiator",
+        "Bumper reinforcement"
+      ]
     }
   },
   "faq": {
@@ -181,14 +276,38 @@
     "aside": "Didn’t find your answer?",
     "asideLink": "Message us on WhatsApp",
     "items": [
-      { "q": "How does it work?", "a": "You send the VIN and describe the part. We check catalogues and supplier stock, then send you options with price and delivery time via your preferred messenger." },
-      { "q": "Can you find a part by VIN?", "a": "Yes, that’s our main method. The VIN shows the exact configuration of the car, so the risk of a mismatch is minimal. No VIN at hand? Send a photo of the registration certificate." },
-      { "q": "Can I order an OEM part?", "a": "Yes. If the original part is available from our suppliers, we’ll offer it with price and delivery time." },
-      { "q": "Do you offer aftermarket parts?", "a": "Yes. We usually offer several options: OEM and cheaper aftermarket parts. The choice is yours." },
-      { "q": "Can I order a used part?", "a": "Yes, if a suitable one is available. We’ll describe its condition honestly before you pay." },
-      { "q": "How long does delivery take?", "a": "It depends on where the part is found: in Batumi — today or tomorrow, from Turkey — usually 1–3 days, from the UAE — 5–10 days. We confirm the exact time before you pay." },
-      { "q": "When do I pay?", "a": "Only after you’ve approved the option, the price and the delivery time. Until then, you pay nothing." },
-      { "q": "What if the part doesn’t fit?", "a": "If it doesn’t fit because we got the VIN match wrong, we’ll replace it or refund you. In other cases, return terms depend on the supplier — we’ll tell you upfront." }
+      {
+        "q": "How does it work?",
+        "a": "You send the VIN and describe the part. We check catalogues and supplier stock, then send you options with price and delivery time via your preferred messenger."
+      },
+      {
+        "q": "Can you find a part by VIN?",
+        "a": "Yes, that’s our main method. The VIN shows the exact configuration of the car, so the risk of a mismatch is minimal. No VIN at hand? Message us on WhatsApp and we’ll sort it out together."
+      },
+      {
+        "q": "Can I order an OEM part?",
+        "a": "Yes. If the original part is available from our suppliers, we’ll offer it with price and delivery time."
+      },
+      {
+        "q": "Do you offer aftermarket parts?",
+        "a": "Yes. We usually offer several options: OEM and cheaper aftermarket parts. The choice is yours."
+      },
+      {
+        "q": "Can I order a used part?",
+        "a": "Yes, if a suitable one is available. We’ll describe its condition honestly before you pay."
+      },
+      {
+        "q": "How long does delivery take?",
+        "a": "It depends on where the part is found: in Batumi — today or tomorrow, from Turkey — usually 1–3 days, from the UAE — 5–10 days. We confirm the exact time before you pay."
+      },
+      {
+        "q": "When do I pay?",
+        "a": "Only after you’ve approved the option, the price and the delivery time. Until then, you pay nothing."
+      },
+      {
+        "q": "What if the part doesn’t fit?",
+        "a": "If it doesn’t fit because we got the VIN match wrong, we’ll replace it or refund you. In other cases, return terms depend on the supplier — we’ll tell you upfront."
+      }
     ]
   },
   "contacts": {

@@ -1,11 +1,12 @@
 import { API_ENDPOINT, TURNSTILE_SITE_KEY, DRAFT_KEY } from '../config.js'
-import { normalizeVin, validateVin, validatePart, validateContact, VIN_LENGTH, MAX_PART_PHOTOS } from './validation.js'
+import { normalizeVin, validateVin, validatePart, validateContact, VIN_LENGTH, MAX_PART_PHOTOS, MAX_UPLOAD_BYTES } from './validation.js'
 import { FilePicker } from './file-picker.js'
+import { compressImage } from './image-compress.js'
 import { createDraft } from './draft.js'
 import { swapPanels, scrollBehavior } from './motion.js'
 
-const DRAFT_FIELDS = ['mode', 'vin', 'part', 'contactMethod', 'contact', 'car', 'partNumber', 'preference', 'name']
-const FIELD_ORDER = ['vin', 'docPhoto', 'part', 'contact', 'partPhotos']
+const DRAFT_FIELDS = ['vin', 'part', 'contactMethod', 'contact', 'car', 'partNumber', 'preference', 'name']
+const FIELD_ORDER = ['vin', 'part', 'contact', 'partPhotos']
 const MIN_LOADING_MS = 600
 
 const format = (template, vars = {}) => template.replace(/\{(\w+)\}/g, (_, key) => vars[key] ?? '')
@@ -43,7 +44,6 @@ export default function initRequestForm() {
 		captcha: $('[data-turnstile]'),
 	}
 
-	const mode = () => form.elements.mode.value
 	const method = () => form.elements.contactMethod.value
 
 	// ── Errors ────────────────────────────────────────────────
@@ -61,11 +61,9 @@ export default function initRequestForm() {
 
 	const validators = {
 		vin: () => {
-			if (mode() !== 'vin') return [null]
 			const vin = normalizeVin(els.vin.value)
 			return [validateVin(vin), { n: vin.length }]
 		},
-		docPhoto: () => [mode() === 'photo' && !docPicker.files.length ? 'photoRequired' : null],
 		part: () => [validatePart(els.part.value)],
 		contact: () => [validateContact(method(), els.contact.value)],
 	}
@@ -117,34 +115,7 @@ export default function initRequestForm() {
 		els.vinWhere.hidden = !open
 	})
 
-	// ── VIN / photo mode ──────────────────────────────────────
-	function applyMode({ animate = false } = {}) {
-		const isVin = mode() === 'vin'
-		const show = fieldEl(isVin ? 'vin' : 'docPhoto')
-		fieldEl('vin').hidden = !isVin
-		fieldEl('docPhoto').hidden = isVin
-		setError(isVin ? 'docPhoto' : 'vin', null)
-		if (animate) {
-			show.classList.remove('is-entering')
-			void show.offsetWidth
-			show.classList.add('is-entering')
-		}
-	}
-
-	form.querySelectorAll('[data-mode]').forEach(radio => {
-		radio.addEventListener('change', () => {
-			applyMode({ animate: true })
-			saveDraft()
-		})
-	})
-
-	// ── Uploads ───────────────────────────────────────────────
-	const docPicker = new FilePicker(fieldEl('docPhoto'), {
-		max: 1,
-		removeLabel: t.remove,
-		// A new valid file clears a previous error; removing a file doesn't nag right away
-		onError: code => (code ? setError('docPhoto', code) : errors.docPhoto && validate('docPhoto')),
-	})
+	// ── Part photos ───────────────────────────────────────────
 	const partPicker = new FilePicker(fieldEl('partPhotos'), {
 		max: MAX_PART_PHOTOS,
 		removeLabel: t.remove,
@@ -259,15 +230,14 @@ export default function initRequestForm() {
 		control.focus({ preventScroll: true })
 	}
 
-	function buildPayload() {
+	async function buildPayload() {
 		const data = new FormData()
-		data.append('mode', mode())
-		if (mode() === 'vin') data.append('vin', normalizeVin(els.vin.value))
-		else data.append('docPhoto', docPicker.files[0])
+		data.append('vin', normalizeVin(els.vin.value))
 		;['part', 'contact', 'car', 'partNumber', 'name'].forEach(name => data.append(name, form.elements[name].value.trim()))
 		data.append('contactMethod', method())
 		data.append('preference', form.elements.preference.value)
-		partPicker.files.forEach(file => data.append('partPhotos', file))
+		const partPhotos = await Promise.all(partPicker.files.map(compressImage))
+		partPhotos.forEach(file => data.append('partPhotos', file))
 		// Anti-spam signals checked by the server
 		data.append('website', form.elements.website.value)
 		data.append('_t', String(startedAt))
@@ -276,6 +246,9 @@ export default function initRequestForm() {
 		// Context for the manager
 		data.append('lang', document.documentElement.lang)
 		data.append('page', location.href)
+
+		const uploadSize = [...data.values()].reduce((sum, value) => sum + (value instanceof File ? value.size : 0), 0)
+		if (uploadSize > MAX_UPLOAD_BYTES) throw { code: 'filesTooLarge' }
 		return data
 	}
 
@@ -288,6 +261,7 @@ export default function initRequestForm() {
 		}
 		const body = await response.json().catch(() => ({}))
 		if (response.status === 429) throw { code: 'rateLimit' }
+		if (response.status === 413) throw { code: 'filesTooLarge' }
 		if (response.status === 422 && body.errors) throw { code: 'summary', fields: body.errors }
 		if (!response.ok || !body.ok) throw { code: 'server' }
 		return body
@@ -298,7 +272,7 @@ export default function initRequestForm() {
 		if (sending) return
 		hideAlert()
 
-		const invalid = ['vin', 'docPhoto', 'part', 'contact'].filter(name => !validate(name))
+		const invalid = ['vin', 'part', 'contact'].filter(name => !validate(name))
 		if (invalid.length) {
 			showAlert(t.errors.summary)
 			focusField(invalid[0])
@@ -307,7 +281,7 @@ export default function initRequestForm() {
 
 		setSending(true)
 		try {
-			const result = await sendRequest(buildPayload())
+			const result = await sendRequest(await buildPayload())
 			draft.clear()
 			await showSuccess(result.id)
 		} catch (error) {
@@ -340,11 +314,9 @@ export default function initRequestForm() {
 
 	success.querySelector('[data-again]').addEventListener('click', async () => {
 		form.reset()
-		docPicker.clear()
 		partPicker.clear()
 		FIELD_ORDER.forEach(name => setError(name, null))
 		hideAlert()
-		applyMode()
 		applyMethod()
 		setMore(false)
 		updateVinCounter('')
@@ -356,7 +328,6 @@ export default function initRequestForm() {
 
 	// ── Init ──────────────────────────────────────────────────
 	const restored = restoreDraft()
-	applyMode()
 	applyMethod()
 	setMore(Boolean(restored.moreOpen))
 	updateVinCounter(normalizeVin(els.vin.value))

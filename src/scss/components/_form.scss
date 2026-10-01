@@ -36,12 +36,6 @@
 		font-size: 1.5rem;
 	}
 
-	&__group {
-		display: flex;
-		flex-direction: column;
-		gap: 1.6rem;
-	}
-
 	&__note {
 		display: flex;
 		gap: .8rem;
@@ -136,6 +130,24 @@
 		}
 	}
 
+	&__note {
+		color: var(--c-ink-3);
+		font-size: 1.4rem;
+
+		a {
+			color: var(--c-ink-2);
+			font-weight: 500;
+			text-decoration-color: var(--c-line-strong);
+			text-underline-offset: 3px;
+			transition: color .2s ease, text-decoration-color .2s ease;
+
+			@include m.hover {
+				color: var(--c-ink);
+				text-decoration-color: currentColor;
+			}
+		}
+	}
+
 	&__error {
 		color: var(--c-error);
 		font-size: 1.4rem;
@@ -148,10 +160,6 @@
 		&:not(:empty) {
 			animation: fade-in .2s var(--ease-out);
 		}
-	}
-
-	&.is-entering {
-		animation: fade-in .3s var(--ease-out);
 	}
 
 	&.is-invalid .input {
@@ -223,63 +231,6 @@
 	&--area {
 		min-height: 9.6rem;
 		resize: vertical;
-	}
-}
-
-// VIN / photo switch
-.segmented {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: .4rem;
-	padding: .4rem;
-	border-radius: var(--radius);
-	background: var(--c-sunken);
-
-	&__item {
-		position: relative;
-
-		input {
-			position: absolute;
-			inset: 0;
-			margin: 0;
-			opacity: 0;
-			cursor: pointer;
-		}
-
-		span {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: .8rem;
-			min-height: 4.4rem;
-			padding: .6rem 1rem;
-			border-radius: var(--radius-sm);
-			color: var(--c-ink-2);
-			font-size: 1.5rem;
-			font-weight: 500;
-			line-height: 1.2;
-			text-align: center;
-			transition:
-				background-color .2s ease,
-				color .2s ease,
-				box-shadow .2s ease;
-
-			.icon {
-				width: 1.8rem;
-				height: 1.8rem;
-			}
-		}
-
-		input:checked + span {
-			background: var(--c-surface);
-			color: var(--c-ink);
-			box-shadow: 0 1px 2px rgba(18, 20, 23, .12);
-		}
-
-		input:focus-visible + span {
-			outline: 2px solid var(--c-accent);
-			outline-offset: 1px;
-		}
 	}
 }
 
