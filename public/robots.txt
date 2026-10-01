@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://zapchast.ge/sitemap.xml
+Sitemap: https://batumiparts.ge/sitemap.xml

@@ -16,8 +16,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
 <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#121417" stroke-opacity=".05"/></pattern></defs>
 <rect width="1200" height="630" fill="#f4f3ef"/>
 <rect width="1200" height="630" fill="url(#grid)"/>
-<g transform="translate(80 80) scale(1.75)"><rect width="32" height="32" rx="7" fill="#121417"/><path d="M16 6.5l8.2 4.75v9.5L16 25.5l-8.2-4.75v-9.5z" fill="none" stroke="#e8662a" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="16" r="3.3" fill="none" stroke="#fff" stroke-width="2"/></g>
-<text x="160" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#121417">Zapchast<tspan fill="#6f757d" font-weight="400">.ge</tspan></text>
+<g transform="translate(80 80) scale(1.75)"><rect width="32" height="32" rx="7" fill="#121417"/><path d="M16 5.6l9 5.2v10.4L16 26.4l-9-5.2V10.8z" fill="none" stroke="#e8662a" stroke-width="1.8" stroke-linejoin="round"/><path d="M13.4 10.6v10.8M13.4 10.6h3.1a2.6 2.6 0 0 1 0 5.2h-3.1M13.4 15.8h3.6a2.8 2.8 0 0 1 0 5.6h-3.6" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="160" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#121417">Batumi<tspan fill="#c2410c">Parts</tspan></text>
 <text x="80" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="76" font-weight="700" fill="#121417" letter-spacing="-2">Запчасти для авто в Батуми</text>
 <text x="80" y="335" font-family="Segoe UI, Arial, sans-serif" font-size="32" fill="#474d55">Пришлите VIN — подберём деталь, цену и срок доставки</text>
 ${cells}

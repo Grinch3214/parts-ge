@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/src/scss/style.scss">
 
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="{{site.name}}{{site.tld}}">
+<meta property="og:site_name" content="{{site.name}}">
 <meta property="og:title" content="{{t.meta.title}}">
 <meta property="og:description" content="{{t.meta.description}}">
 <meta property="og:url" content="{{canonical}}">
@@ -31,8 +31,8 @@
 	(function (root) {
 		root.classList.replace('no-js', 'js')
 		try {
-			if (sessionStorage.getItem('zp:seen')) root.classList.add('no-intro')
-			sessionStorage.setItem('zp:seen', '1')
+			if (sessionStorage.getItem('bp:seen')) root.classList.add('no-intro')
+			sessionStorage.setItem('bp:seen', '1')
 		} catch (e) {}
 	})(document.documentElement)
 </script>
