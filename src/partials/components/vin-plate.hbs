@@ -1,0 +1,26 @@
+<figure class="vin-plate">
+	<div class="vin-plate__head">
+		<span class="vin-plate__badge">VIN</span>
+		<span>{{t.hero.vin.caption}}</span>
+	</div>
+
+	<div class="vin-plate__code" aria-hidden="true">
+		{{#each vinChars}}
+		<span class="vin-plate__char is-g{{group}}" style="--i: {{@index}}">{{char}}</span>
+		{{/each}}
+	</div>
+
+	<ul class="vin-plate__groups">
+		{{#each t.hero.vin.groups}}
+		<li class="vin-plate__group" style="--i: {{@index}}">
+			<span class="vin-plate__range">{{range}} · {{code}}</span>
+			{{name}}
+		</li>
+		{{/each}}
+	</ul>
+
+	<figcaption class="vin-plate__foot">
+		{{> components/icon name="check"}}
+		<span>{{t.hero.vin.footer}}</span>
+	</figcaption>
+</figure>

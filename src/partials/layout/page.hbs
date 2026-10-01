@@ -1,0 +1,19 @@
+{{> layout/icons}}
+<a class="skip-link" href="#request">{{t.a11y.skip}}</a>
+
+{{> layout/header}}
+
+<main id="main">
+	{{> sections/hero}}
+	{{> sections/how-it-works}}
+	{{> sections/benefits}}
+	{{> sections/delivery}}
+	{{> sections/auction-cars}}
+	{{> sections/faq}}
+	{{> sections/contacts}}
+</main>
+
+{{> layout/footer}}
+{{> components/floating-actions}}
+
+<script type="application/json" id="form-i18n">{{{json formRuntime}}}</script>

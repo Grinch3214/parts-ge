@@ -1,0 +1,18 @@
+{
+  "_todo": "Контакты и домен — заглушки. Заменить на реальные перед запуском.",
+  "name": "Zapchast",
+  "tld": ".ge",
+  "url": "https://zapchast.ge",
+  "phone": "+995555000000",
+  "phoneDisplay": "+995 555 00 00 00",
+  "whatsapp": "995555000000",
+  "telegram": "zapchast_ge",
+  "viber": "+995555000000",
+  "vinSample": "JTDKN3DU5A0123456",
+  "delivery": {
+    "BAT": 0.1,
+    "TR": 0.28,
+    "AE": 0.85,
+    "EU": 0
+  }
+}

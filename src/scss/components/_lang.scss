@@ -1,0 +1,38 @@
+@use "../mixins" as m;
+
+.lang {
+	display: flex;
+	gap: .2rem;
+	padding: .3rem;
+	border-radius: var(--radius);
+	background: var(--c-sunken);
+
+	&__link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 4rem;
+		height: 3.4rem;
+		padding: 0 .8rem;
+		border-radius: var(--radius-sm);
+		color: var(--c-ink-2);
+		font-family: var(--font-mono);
+		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: .04em;
+		text-decoration: none;
+		transition:
+			background-color .2s ease,
+			color .2s ease;
+
+		@include m.hover {
+			color: var(--c-ink);
+		}
+
+		&.is-active {
+			background: var(--c-surface);
+			color: var(--c-ink);
+			box-shadow: 0 1px 2px rgba(18, 20, 23, .1);
+		}
+	}
+}

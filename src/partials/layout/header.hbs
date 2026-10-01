@@ -1,0 +1,17 @@
+<header class="header" data-header>
+	<div class="container header__inner">
+		{{> components/logo}}
+
+		<nav class="header__nav" aria-label="{{t.a11y.nav}}">
+			<a href="#how">{{t.nav.how}}</a>
+			<a href="#delivery">{{t.nav.delivery}}</a>
+			<a href="#faq">{{t.nav.faq}}</a>
+			<a href="#contacts">{{t.nav.contacts}}</a>
+		</nav>
+
+		<div class="header__actions">
+			{{> components/lang-switch}}
+			<a class="btn btn--primary btn--sm header__cta" href="#request" data-to-form>{{t.nav.cta}}</a>
+		</div>
+	</div>
+</header>

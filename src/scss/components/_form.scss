@@ -1,0 +1,480 @@
+@use "../mixins" as m;
+
+.request {
+	position: relative;
+	padding: 2.4rem 2rem;
+	border: 1px solid var(--c-line);
+	border-radius: var(--radius-lg);
+	background: var(--c-surface);
+	box-shadow: var(--shadow-card);
+
+	@include m.sm {
+		padding: 3.2rem;
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+		gap: 2.4rem;
+	}
+
+	&__head {
+		margin-bottom: -.4rem;
+	}
+
+	&__title {
+		font-size: 2.2rem;
+		font-weight: 650;
+		line-height: 1.2;
+		letter-spacing: -.015em;
+		outline: none;
+	}
+
+	&__subtitle {
+		margin-top: .4rem;
+		color: var(--c-ink-3);
+		font-size: 1.5rem;
+	}
+
+	&__group {
+		display: flex;
+		flex-direction: column;
+		gap: 1.6rem;
+	}
+
+	&__note {
+		display: flex;
+		gap: .8rem;
+		margin-top: -1.2rem;
+		color: var(--c-ink-3);
+		font-size: 1.4rem;
+		line-height: 1.45;
+
+		.icon {
+			width: 1.8rem;
+			height: 1.8rem;
+			margin-top: .1rem;
+			color: var(--c-success);
+		}
+	}
+}
+
+// Field
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: .8rem;
+	min-width: 0;
+
+	&__top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: .4rem 1.2rem;
+	}
+
+	&__label {
+		color: var(--c-ink);
+		font-size: 1.5rem;
+		font-weight: 600;
+		line-height: 1.35;
+	}
+
+	legend.field__label {
+		margin-bottom: .8rem;
+	}
+
+	&__sublabel {
+		margin-top: .4rem;
+		color: var(--c-ink-2);
+		font-size: 1.4rem;
+	}
+
+	&__help {
+		color: var(--c-ink-2);
+		font-size: 1.4rem;
+		text-decoration: underline;
+		text-decoration-color: var(--c-line-strong);
+		text-underline-offset: 3px;
+		transition: color .2s ease, text-decoration-color .2s ease;
+
+		@include m.hover {
+			color: var(--c-ink);
+			text-decoration-color: currentColor;
+		}
+	}
+
+	&__hint {
+		padding: 1.2rem 1.4rem;
+		border: 1px solid var(--c-line);
+		border-radius: var(--radius);
+		background: var(--c-surface-2);
+		color: var(--c-ink-2);
+		font-size: 1.4rem;
+		line-height: 1.5;
+		animation: fade-in .25s var(--ease-out);
+	}
+
+	&__control {
+		position: relative;
+	}
+
+	&__counter {
+		position: absolute;
+		top: 50%;
+		right: 1.4rem;
+		color: var(--c-ink-3);
+		font-family: var(--font-mono);
+		font-size: 1.25rem;
+		pointer-events: none;
+		transform: translateY(-50%);
+		transition: color .2s ease;
+
+		&.is-complete {
+			color: var(--c-success);
+		}
+	}
+
+	&__error {
+		color: var(--c-error);
+		font-size: 1.4rem;
+		line-height: 1.4;
+
+		&:empty {
+			display: none;
+		}
+
+		&:not(:empty) {
+			animation: fade-in .2s var(--ease-out);
+		}
+	}
+
+	&.is-entering {
+		animation: fade-in .3s var(--ease-out);
+	}
+
+	&.is-invalid .input {
+		border-color: var(--c-error);
+
+		&:focus {
+			box-shadow: 0 0 0 3px var(--c-error-soft);
+		}
+	}
+
+	&.is-invalid .upload__drop {
+		border-color: var(--c-error);
+	}
+}
+
+.input {
+	width: 100%;
+	min-height: 5.2rem;
+	padding: 1.3rem 1.4rem;
+	border: 1px solid var(--c-line-strong);
+	border-radius: var(--radius);
+	background: var(--c-surface-2);
+	color: var(--c-ink);
+	font-size: 1.7rem; // ≥16px: no zoom-on-focus in iOS Safari
+	line-height: 1.4;
+	appearance: none;
+	transition:
+		border-color .2s ease,
+		box-shadow .2s ease,
+		background-color .2s ease;
+
+	&::placeholder {
+		color: #9a9fa5;
+		opacity: 1;
+	}
+
+	@include m.hover {
+		border-color: #aaa69c;
+	}
+
+	&:focus {
+		outline: none;
+		border-color: var(--c-ink);
+		background: var(--c-surface);
+		box-shadow: 0 0 0 3px rgba(18, 20, 23, .08);
+	}
+
+	&--vin {
+		padding-right: 6.4rem;
+		font-family: var(--font-mono);
+		letter-spacing: .08em;
+		text-transform: uppercase;
+
+		&::placeholder {
+			font-family: var(--font-sans);
+			letter-spacing: 0;
+			text-transform: none;
+		}
+	}
+
+	&--mono {
+		font-family: var(--font-mono);
+
+		&::placeholder {
+			font-family: var(--font-sans);
+		}
+	}
+
+	&--area {
+		min-height: 9.6rem;
+		resize: vertical;
+	}
+}
+
+// VIN / photo switch
+.segmented {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: .4rem;
+	padding: .4rem;
+	border-radius: var(--radius);
+	background: var(--c-sunken);
+
+	&__item {
+		position: relative;
+
+		input {
+			position: absolute;
+			inset: 0;
+			margin: 0;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: .8rem;
+			min-height: 4.4rem;
+			padding: .6rem 1rem;
+			border-radius: var(--radius-sm);
+			color: var(--c-ink-2);
+			font-size: 1.5rem;
+			font-weight: 500;
+			line-height: 1.2;
+			text-align: center;
+			transition:
+				background-color .2s ease,
+				color .2s ease,
+				box-shadow .2s ease;
+
+			.icon {
+				width: 1.8rem;
+				height: 1.8rem;
+			}
+		}
+
+		input:checked + span {
+			background: var(--c-surface);
+			color: var(--c-ink);
+			box-shadow: 0 1px 2px rgba(18, 20, 23, .12);
+		}
+
+		input:focus-visible + span {
+			outline: 2px solid var(--c-accent);
+			outline-offset: 1px;
+		}
+	}
+}
+
+// Radio chips
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .8rem;
+
+	&--methods {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: .6rem;
+	}
+}
+
+.chip {
+	position: relative;
+
+	input {
+		position: absolute;
+		inset: 0;
+		margin: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	&__body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: .6rem;
+		min-height: 4.4rem;
+		padding: .8rem 1.4rem;
+		border: 1px solid var(--c-line-strong);
+		border-radius: var(--radius);
+		background: var(--c-surface);
+		color: var(--c-ink-2);
+		font-size: 1.5rem;
+		font-weight: 500;
+		line-height: 1.2;
+		transition:
+			border-color .2s ease,
+			box-shadow .2s ease,
+			color .2s ease,
+			transform .15s var(--ease-out);
+	}
+
+	input:active + .chip__body {
+		transform: scale(.97);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		input:hover + .chip__body {
+			border-color: #a9a59b;
+		}
+	}
+
+	input:checked + .chip__body {
+		border-color: var(--c-ink);
+		box-shadow: inset 0 0 0 1px var(--c-ink);
+		color: var(--c-ink);
+	}
+
+	input:focus-visible + .chip__body {
+		outline: 2px solid var(--c-accent);
+		outline-offset: 2px;
+	}
+
+	&--method .chip__body {
+		flex-direction: column;
+		gap: .4rem;
+		min-height: 6.4rem;
+		padding: .8rem .4rem;
+		font-size: 1.25rem;
+
+		.icon {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+	}
+}
+
+// Optional details (progressive disclosure)
+.more {
+	border-top: 1px solid var(--c-line);
+	border-bottom: 1px solid var(--c-line);
+
+	&__toggle {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		width: 100%;
+		min-height: 5.6rem;
+		color: var(--c-ink);
+		font-size: 1.5rem;
+		font-weight: 600;
+		text-align: left;
+	}
+
+	&__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.6rem;
+		height: 2.6rem;
+		border: 1px solid var(--c-line-strong);
+		border-radius: var(--radius-sm);
+		transition:
+			transform .3s var(--ease-out),
+			background-color .2s ease,
+			color .2s ease;
+
+		.icon {
+			width: 1.4rem;
+			height: 1.4rem;
+		}
+	}
+
+	&__toggle[aria-expanded="true"] &__icon {
+		transform: rotate(45deg);
+		border-color: var(--c-ink);
+		background: var(--c-ink);
+		color: #fff;
+	}
+
+	&__optional {
+		margin-left: auto;
+		color: var(--c-ink-3);
+		font-size: 1.3rem;
+		font-weight: 400;
+	}
+
+	&__panel {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows .4s var(--ease-out);
+
+		&.is-open {
+			grid-template-rows: 1fr;
+		}
+	}
+
+	&__inner {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		padding: .4rem .3rem 2.4rem;
+		margin: 0 -.3rem;
+		opacity: 0;
+		transition: opacity .3s ease;
+	}
+
+	&__panel.is-open &__content {
+		opacity: 1;
+		transition-delay: .08s;
+	}
+}
+
+.no-js .more__panel {
+	grid-template-rows: 1fr;
+
+	.more__content {
+		opacity: 1;
+	}
+}
+
+// Honeypot — hidden from people, visible to naive bots
+.hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.form-alert {
+	display: flex;
+	gap: 1rem;
+	padding: 1.2rem 1.4rem;
+	border: 1px solid #f2c8c3;
+	border-radius: var(--radius);
+	background: var(--c-error-soft);
+	color: #7a1b12;
+	font-size: 1.45rem;
+	line-height: 1.45;
+	animation: fade-in .25s var(--ease-out);
+
+	.icon {
+		margin-top: .1rem;
+		color: var(--c-error);
+	}
+}

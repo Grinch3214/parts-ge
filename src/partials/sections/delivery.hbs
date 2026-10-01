@@ -1,0 +1,29 @@
+<section class="section delivery" id="delivery" aria-labelledby="delivery-title">
+	<div class="container delivery__grid">
+		<header class="section__head" data-reveal>
+			<p class="eyebrow">{{t.delivery.eyebrow}}</p>
+			<h2 class="section__title" id="delivery-title">{{t.delivery.title}}</h2>
+			<p class="section__lead">{{t.delivery.lead}}</p>
+		</header>
+
+		<div class="delivery__card" data-reveal style="--d: 1">
+			<ul class="routes">
+				{{#each delivery}}
+				<li class="route" style="--scale: {{scale}}; --d: {{@index}}">
+					<span class="route__code">{{code}}</span>
+					<span class="route__info">
+						<span class="route__name">{{name}}</span>
+						<span class="route__note">{{note}}</span>
+					</span>
+					<span class="route__time">{{time}}</span>
+					<span class="route__bar{{#unless scale}} route__bar--unknown{{/unless}}" aria-hidden="true"><span></span></span>
+				</li>
+				{{/each}}
+			</ul>
+			<p class="delivery__note">
+				{{> components/icon name="info"}}
+				<span>{{t.delivery.note}}</span>
+			</p>
+		</div>
+	</div>
+</section>

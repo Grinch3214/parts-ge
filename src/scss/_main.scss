@@ -1,0 +1,66 @@
+// Page-to-page navigation (language switch): the browser keeps the old page on screen until
+// the new one is ready, then cross-fades. Chrome/Edge 126+, Safari 18.2+; others just navigate.
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: .22s;
+	animation-timing-function: ease-out;
+}
+
+// The header doesn't change between languages — keep it still instead of fading it
+.header {
+	view-transition-name: site-header;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	@view-transition {
+		navigation: none;
+	}
+}
+
+// Returning within the same visit (e.g. language switch): no intro animation, content is just there
+.no-intro {
+	.hero__intro > *,
+	.hero__form,
+	.vin-plate__char,
+	.vin-plate__group,
+	.vin-plate__group::before {
+		animation: none !important;
+	}
+}
+
+// Scroll reveal: a soft fade + lift, once. Only when JS is running (no-JS shows everything).
+.js [data-reveal] {
+	opacity: 0;
+	transform: translateY(16px);
+	transition:
+		opacity .8s var(--ease-out),
+		transform .8s var(--ease-out);
+	transition-delay: calc(var(--d, 0) * 90ms);
+}
+
+.js [data-reveal].is-revealed {
+	opacity: 1;
+	transform: none;
+}
+
+.no-intro [data-reveal] {
+	opacity: 1;
+	transform: none;
+	transition: none;
+}
+
+.no-intro .route__bar span {
+	transform: scaleX(1);
+	transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js [data-reveal] {
+		opacity: 1;
+		transform: none;
+	}
+}

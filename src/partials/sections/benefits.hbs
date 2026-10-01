@@ -1,0 +1,31 @@
+<section class="section benefits" id="benefits" aria-labelledby="benefits-title">
+	<div class="container">
+		<header class="section__head" data-reveal>
+			<p class="eyebrow">{{t.benefits.eyebrow}}</p>
+			<h2 class="section__title" id="benefits-title">{{t.benefits.title}}</h2>
+		</header>
+
+		<ul class="benefits__grid">
+			{{#each t.benefits.items}}
+			<li class="benefit" data-reveal style="--d: {{@index}}">
+				<span class="benefit__icon">{{> components/icon name=icon}}</span>
+				<h3 class="benefit__title">{{title}}</h3>
+				<p class="benefit__text">{{text}}</p>
+			</li>
+			{{/each}}
+		</ul>
+
+		<div class="trust-card" data-reveal>
+			<div class="trust-card__head">
+				<span class="trust-card__icon">{{> components/icon name="shield"}}</span>
+				<h3 class="trust-card__title">{{t.benefits.trust.title}}</h3>
+			</div>
+			<ol class="trust-flow">
+				{{#each t.benefits.trust.flow}}
+				<li class="trust-flow__step">{{this}}</li>
+				{{/each}}
+			</ol>
+			<p class="trust-card__note">{{t.benefits.trust.note}}</p>
+		</div>
+	</div>
+</section>

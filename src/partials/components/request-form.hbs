@@ -1,0 +1,182 @@
+<div class="request" data-request>
+	<form class="request__form" action="/api/request" method="post" enctype="multipart/form-data" novalidate data-request-form>
+		<div class="request__head">
+			<h2 class="request__title" id="request-title" tabindex="-1">{{t.form.title}}</h2>
+			<p class="request__subtitle">{{t.form.subtitle}}</p>
+		</div>
+
+		{{!-- 1. Vehicle: VIN or a photo of the registration certificate --}}
+		<fieldset class="request__group">
+			<legend class="sr-only">{{t.form.vehicleLegend}}</legend>
+
+			<div class="segmented">
+				<label class="segmented__item">
+					<input type="radio" name="mode" value="vin" checked data-mode>
+					<span>{{> components/icon name="scan"}}{{t.form.modeVin}}</span>
+				</label>
+				<label class="segmented__item">
+					<input type="radio" name="mode" value="photo" data-mode>
+					<span>{{> components/icon name="camera"}}{{t.form.modePhoto}}</span>
+				</label>
+			</div>
+
+			<div class="field" data-field="vin">
+				<div class="field__top">
+					<label class="field__label" for="f-vin">{{t.form.vinLabel}}</label>
+					<button class="field__help" type="button" aria-expanded="false" aria-controls="vin-where" data-vin-help>{{t.form.vinWhere}}</button>
+				</div>
+				<div class="field__control">
+					<input class="input input--vin" id="f-vin" name="vin" type="text" inputmode="text"
+						autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false"
+						maxlength="24" placeholder="{{t.form.vinPlaceholder}}" aria-describedby="vin-counter vin-error">
+					<span class="field__counter" id="vin-counter" data-vin-counter>0/17</span>
+				</div>
+				<p class="field__hint" id="vin-where" hidden>{{t.form.vinWhereText}}</p>
+				<p class="field__error" id="vin-error" data-error></p>
+			</div>
+
+			<div class="field" data-field="docPhoto" hidden>
+				<span class="field__label" id="doc-label">{{t.form.docLabel}}</span>
+				<div class="upload" data-upload="doc">
+					<label class="upload__drop">
+						<input class="sr-only" type="file" name="docPhoto" accept="image/*,application/pdf" aria-labelledby="doc-label" aria-describedby="doc-hint doc-error">
+						<span class="upload__icon">{{> components/icon name="camera"}}</span>
+						<span class="upload__text">
+							{{t.form.docButton}}
+							<span class="upload__hint" id="doc-hint">{{t.form.docHint}}</span>
+						</span>
+					</label>
+					<ul class="upload__list" data-files></ul>
+				</div>
+				<p class="field__error" id="doc-error" data-error></p>
+			</div>
+		</fieldset>
+
+		{{!-- 2. The part --}}
+		<div class="field" data-field="part">
+			<label class="field__label" for="f-part">{{t.form.partLabel}}</label>
+			<textarea class="input input--area" id="f-part" name="part" rows="3" placeholder="{{t.form.partPlaceholder}}" aria-describedby="part-error"></textarea>
+			<p class="field__error" id="part-error" data-error></p>
+		</div>
+
+		{{!-- 3. Where to send the options --}}
+		<fieldset class="field" data-field="contact">
+			<legend class="field__label">{{t.form.contactLegend}}</legend>
+			<div class="chips chips--methods">
+				{{#each methods}}
+				<label class="chip chip--method">
+					<input type="radio" name="contactMethod" value="{{id}}"{{#if @first}} checked{{/if}} data-method>
+					<span class="chip__body">{{> components/icon name=id}}<span>{{label}}</span></span>
+				</label>
+				{{/each}}
+			</div>
+			<label class="field__sublabel" for="f-contact" data-contact-label>{{t.form.contactLabels.whatsapp}}</label>
+			<input class="input" id="f-contact" name="contact" type="tel" inputmode="tel" autocomplete="tel"
+				placeholder="{{t.form.contactPlaceholders.whatsapp}}" aria-describedby="contact-error">
+			<p class="field__error" id="contact-error" data-error></p>
+		</fieldset>
+
+		{{!-- Optional details, hidden by default --}}
+		<div class="more">
+			<button class="more__toggle" type="button" aria-expanded="false" aria-controls="more-panel" data-more-toggle>
+				<span class="more__icon">{{> components/icon name="plus"}}</span>
+				<span>{{t.form.moreToggle}}</span>
+				<span class="more__optional">{{t.form.optional}}</span>
+			</button>
+			<div class="more__panel" id="more-panel" data-more-panel>
+				<div class="more__inner">
+					<div class="more__content">
+						<div class="field">
+							<label class="field__label" for="f-car">{{t.form.carLabel}}</label>
+							<input class="input" id="f-car" name="car" type="text" autocomplete="off" placeholder="{{t.form.carPlaceholder}}">
+						</div>
+
+						<div class="field">
+							<label class="field__label" for="f-pn">{{t.form.partNumberLabel}}</label>
+							<input class="input input--mono" id="f-pn" name="partNumber" type="text" autocomplete="off"
+								autocapitalize="characters" spellcheck="false" placeholder="{{t.form.partNumberPlaceholder}}">
+						</div>
+
+						<div class="field" data-field="partPhotos">
+							<span class="field__label" id="photos-label">{{t.form.photosLabel}}</span>
+							<div class="upload" data-upload="parts">
+								<label class="upload__drop upload__drop--compact">
+									<input class="sr-only" type="file" name="partPhotos" accept="image/*" multiple aria-labelledby="photos-label" aria-describedby="photos-hint photos-error">
+									<span class="upload__icon">{{> components/icon name="camera"}}</span>
+									<span class="upload__text">
+										{{t.form.photosButton}}
+										<span class="upload__hint" id="photos-hint">{{t.form.photosHint}}</span>
+									</span>
+								</label>
+								<ul class="upload__list" data-files></ul>
+							</div>
+							<p class="field__error" id="photos-error" data-error></p>
+						</div>
+
+						<fieldset class="field">
+							<legend class="field__label">{{t.form.preferenceLabel}}</legend>
+							<div class="chips">
+								{{#each preferences}}
+								<label class="chip">
+									<input type="radio" name="preference" value="{{id}}"{{#if @first}} checked{{/if}}>
+									<span class="chip__body">{{label}}</span>
+								</label>
+								{{/each}}
+							</div>
+						</fieldset>
+
+						<div class="field">
+							<label class="field__label" for="f-name">{{t.form.nameLabel}}</label>
+							<input class="input" id="f-name" name="name" type="text" autocomplete="given-name" placeholder="{{t.form.namePlaceholder}}">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{!-- Anti-spam: honeypot (humans never see it) + Cloudflare Turnstile when a site key is configured --}}
+		<div class="hp" aria-hidden="true">
+			<label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+		</div>
+		<div class="request__captcha" data-turnstile hidden></div>
+
+		<div class="form-alert" role="alert" data-alert hidden>
+			{{> components/icon name="alert"}}
+			<p data-alert-text></p>
+		</div>
+
+		<button class="btn btn--primary btn--lg btn--block request__submit" type="submit" data-submit>
+			<span class="btn__spinner" aria-hidden="true"></span>
+			<span data-submit-label>{{t.form.submit}}</span>
+			{{> components/icon name="arrow-right" cls="btn__arrow"}}
+		</button>
+
+		<p class="request__note">
+			{{> components/icon name="clock"}}
+			<span>{{t.form.note}}</span>
+		</p>
+	</form>
+
+	<div class="success" data-success hidden>
+		<svg class="success__icon" viewBox="0 0 56 56" aria-hidden="true">
+			<circle cx="28" cy="28" r="27"/>
+			<path d="M17 28.5l7.5 7.5L39.5 21"/>
+		</svg>
+		<h2 class="success__title" tabindex="-1" data-success-title></h2>
+		<p class="success__text">{{t.success.text}}</p>
+
+		<p class="success__next">{{t.success.nextTitle}}</p>
+		<ol class="success__steps">
+			{{#each t.success.next}}
+			<li>{{this}}</li>
+			{{/each}}
+		</ol>
+
+		<div class="success__actions">
+			<button class="btn btn--ghost" type="button" data-again>{{t.success.again}}</button>
+			<a class="success__link" href="{{links.whatsapp}}" target="_blank" rel="noopener">
+				{{> components/icon name="whatsapp"}}{{t.success.question}}
+			</a>
+		</div>
+	</div>
+</div>

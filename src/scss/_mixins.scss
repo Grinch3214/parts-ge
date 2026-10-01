@@ -1,0 +1,50 @@
+$bp-sm: 560px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+@mixin sm {
+	@media (min-width: $bp-sm) {
+		@content;
+	}
+}
+
+@mixin md {
+	@media (min-width: $bp-md) {
+		@content;
+	}
+}
+
+@mixin lg {
+	@media (min-width: $bp-lg) {
+		@content;
+	}
+}
+
+@mixin xl {
+	@media (min-width: $bp-xl) {
+		@content;
+	}
+}
+
+// Kept for compatibility with the starter template
+@mixin viewport-md {
+	@include md {
+		@content;
+	}
+}
+
+// Hover effects only for real pointers — no sticky hover on touch screens
+@mixin hover {
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+@mixin motion {
+	@media (prefers-reduced-motion: no-preference) {
+		@content;
+	}
+}

@@ -1,0 +1,112 @@
+@use "../mixins" as m;
+
+.hero {
+	position: relative;
+	isolation: isolate;
+	padding: 2.4rem 0 6.4rem;
+	overflow: hidden;
+
+	@include m.lg {
+		padding: 6.4rem 0 10.4rem;
+	}
+
+	// Faint technical grid, fading out — a drafting-paper hint, not decoration for its own sake
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background-image:
+			linear-gradient(to right, rgba(18, 20, 23, .045) 1px, transparent 1px),
+			linear-gradient(to bottom, rgba(18, 20, 23, .045) 1px, transparent 1px);
+		background-size: 4rem 4rem;
+		-webkit-mask-image: radial-gradient(ellipse 70% 55% at 25% 15%, #000 15%, transparent 75%);
+		mask-image: radial-gradient(ellipse 70% 55% at 25% 15%, #000 15%, transparent 75%);
+	}
+
+	&__grid {
+		display: grid;
+		gap: 2.4rem;
+
+		@include m.lg {
+			grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+			align-items: start;
+			gap: 6.4rem;
+		}
+
+		@include m.xl {
+			gap: 8.8rem;
+		}
+	}
+
+	&__eyebrow {
+		color: var(--c-ink-2);
+
+		&::before {
+			background: var(--c-accent);
+		}
+	}
+
+	&__title {
+		font-size: clamp(3.4rem, 2.2rem + 4vw, 6.4rem);
+		font-weight: 700;
+		line-height: 1.02;
+		letter-spacing: -.035em;
+		text-wrap: balance;
+	}
+
+	&__lead {
+		max-width: 50rem;
+		margin-top: 1.6rem;
+		color: var(--c-ink-2);
+		font-size: 1.7rem;
+		text-wrap: pretty;
+
+		@include m.lg {
+			margin-top: 2.4rem;
+			font-size: 1.9rem;
+		}
+	}
+
+	&__trust {
+		display: none;
+
+		@include m.lg {
+			display: flex;
+			flex-direction: column;
+			gap: 1.2rem;
+			margin-top: 3.2rem;
+		}
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: 1.2rem;
+			font-size: 1.6rem;
+		}
+
+		.icon {
+			color: var(--c-accent);
+		}
+	}
+
+	&__form {
+		scroll-margin-top: calc(var(--header-h) + 1.6rem);
+	}
+
+	// Load-in: once, short, only the first screen
+	@include m.motion {
+		&__intro > * {
+			animation: rise .7s var(--ease-out) both;
+		}
+
+		&__intro > :nth-child(2) { animation-delay: .06s; }
+		&__intro > :nth-child(3) { animation-delay: .12s; }
+		&__intro > :nth-child(4) { animation-delay: .18s; }
+		&__intro > :nth-child(5) { animation-delay: .24s; }
+
+		&__form {
+			animation: rise .7s .1s var(--ease-out) both;
+		}
+	}
+}

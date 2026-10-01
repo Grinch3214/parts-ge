@@ -1,0 +1,24 @@
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+	<div class="container faq__grid">
+		<header class="section__head faq__head" data-reveal>
+			<p class="eyebrow">{{t.faq.eyebrow}}</p>
+			<h2 class="section__title" id="faq-title">{{t.faq.title}}</h2>
+			<p class="faq__aside">
+				{{t.faq.aside}}
+				<a href="{{links.whatsapp}}" target="_blank" rel="noopener">{{t.faq.asideLink}}</a>
+			</p>
+		</header>
+
+		<div class="faq__list" data-faq data-reveal style="--d: 1">
+			{{#each t.faq.items}}
+			<details class="faq__item">
+				<summary class="faq__q">
+					<span>{{q}}</span>
+					<span class="faq__icon">{{> components/icon name="plus"}}</span>
+				</summary>
+				<div class="faq__a"><p>{{a}}</p></div>
+			</details>
+			{{/each}}
+		</div>
+	</div>
+</section>

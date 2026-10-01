@@ -1,0 +1,146 @@
+@use "../mixins" as m;
+
+.auction {
+	background: var(--c-dark);
+	color: var(--c-dark-ink);
+
+	.eyebrow {
+		color: var(--c-dark-ink-2);
+	}
+
+	.section__title {
+		color: #fff;
+	}
+
+	&__grid {
+		display: grid;
+		gap: 4rem;
+
+		@include m.lg {
+			grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+			align-items: center;
+			gap: 8rem;
+		}
+	}
+
+	&__text {
+		max-width: 54rem;
+		margin-top: 1.6rem;
+		color: var(--c-dark-ink-2);
+		text-wrap: pretty;
+	}
+
+	&__models-label {
+		margin-top: 3.2rem;
+		color: var(--c-dark-ink-2);
+		font-size: 1.4rem;
+	}
+
+	&__models {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .8rem;
+		margin-top: 1.2rem;
+
+		li {
+			padding: .7rem 1.2rem;
+			border: 1px solid var(--c-dark-line);
+			border-radius: var(--radius-sm);
+			background: rgba(255, 255, 255, .03);
+			font-size: 1.45rem;
+		}
+
+		.is-more {
+			border-style: dashed;
+			background: none;
+			color: var(--c-dark-ink-2);
+		}
+	}
+
+	&__cta {
+		margin-top: 3.2rem;
+	}
+}
+
+.lot-card {
+	padding: 2.4rem;
+	border: 1px solid var(--c-dark-line);
+	border-radius: var(--radius-lg);
+	background: var(--c-dark-2);
+	font-size: 1.5rem;
+
+	@include m.md {
+		padding: 3.2rem;
+	}
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.2rem;
+		padding-bottom: 1.6rem;
+		border-bottom: 1px solid var(--c-dark-line);
+		color: var(--c-dark-ink-2);
+		font-family: var(--font-mono);
+		font-size: 1.2rem;
+		letter-spacing: .08em;
+		text-transform: uppercase;
+	}
+
+	&__tag {
+		padding: .3rem .8rem;
+		border-radius: 4px;
+		background: rgba(240, 138, 93, .14);
+		color: #f4a37f;
+	}
+
+	&__row {
+		display: grid;
+		grid-template-columns: 11rem minmax(0, 1fr);
+		gap: 1.6rem;
+		padding: 1.2rem 0;
+		border-bottom: 1px dashed var(--c-dark-line);
+
+		dt {
+			color: var(--c-dark-ink-2);
+			font-size: 1.4rem;
+		}
+
+		dd {
+			color: #fff;
+			font-weight: 500;
+		}
+
+		&--mono dd {
+			font-family: var(--font-mono);
+			letter-spacing: .06em;
+		}
+	}
+
+	&__needs-label {
+		margin-top: 2rem;
+		color: var(--c-dark-ink-2);
+		font-size: 1.4rem;
+	}
+
+	&__needs {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem 1.6rem;
+		margin-top: 1.2rem;
+
+		li {
+			display: flex;
+			align-items: flex-start;
+			gap: .8rem;
+			line-height: 1.35;
+		}
+
+		.icon {
+			width: 1.8rem;
+			height: 1.8rem;
+			margin-top: .1rem;
+			color: var(--c-accent-on-dark);
+		}
+	}
+}

@@ -1,0 +1,26 @@
+@use "@fontsource-variable/golos-text";
+@use "@fontsource-variable/jetbrains-mono";
+
+@use "fonts";
+@use "reset";
+@use "vars";
+@use "global";
+@use "main";
+
+@use "components/buttons";
+@use "components/header";
+@use "components/lang";
+@use "components/form";
+@use "components/upload";
+@use "components/success";
+@use "components/floating";
+
+@use "sections/hero";
+@use "sections/vin-plate";
+@use "sections/steps";
+@use "sections/benefits";
+@use "sections/delivery";
+@use "sections/auction";
+@use "sections/faq";
+@use "sections/contacts";
+@use "sections/footer";

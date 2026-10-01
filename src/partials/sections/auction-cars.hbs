@@ -1,0 +1,43 @@
+<section class="section auction" id="auction" aria-labelledby="auction-title">
+	<div class="container auction__grid">
+		<div class="auction__content" data-reveal>
+			<p class="eyebrow">{{t.auction.eyebrow}}</p>
+			<h2 class="section__title" id="auction-title">{{t.auction.title}}</h2>
+			<p class="auction__text">{{t.auction.text}}</p>
+
+			<p class="auction__models-label">{{t.auction.modelsLabel}}</p>
+			<ul class="auction__models">
+				{{#each t.auction.models}}
+				<li>{{this}}</li>
+				{{/each}}
+				<li class="is-more">{{t.auction.more}}</li>
+			</ul>
+
+			<a class="btn btn--primary btn--lg auction__cta" href="#request" data-to-form>
+				{{t.auction.cta}}
+				{{> components/icon name="arrow-right" cls="btn__arrow"}}
+			</a>
+		</div>
+
+		<div class="lot-card" data-reveal style="--d: 1">
+			<div class="lot-card__head">
+				<span>{{t.auction.card.label}}</span>
+				<span class="lot-card__tag">US SPEC</span>
+			</div>
+			<dl class="lot-card__rows">
+				{{#each t.auction.card.rows}}
+				<div class="lot-card__row{{#if mono}} lot-card__row--mono{{/if}}">
+					<dt>{{k}}</dt>
+					<dd>{{v}}</dd>
+				</div>
+				{{/each}}
+			</dl>
+			<p class="lot-card__needs-label">{{t.auction.card.needsLabel}}</p>
+			<ul class="lot-card__needs">
+				{{#each t.auction.card.needs}}
+				<li>{{> components/icon name="check"}}<span>{{this}}</span></li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</section>

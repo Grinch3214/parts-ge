@@ -1,0 +1,5 @@
+<nav class="lang" aria-label="{{@root.t.a11y.language}}">
+	{{#each @root.locales}}
+	<a class="lang__link{{#if active}} is-active{{/if}}" href="{{url}}" hreflang="{{code}}" lang="{{code}}" title="{{name}}"{{#if active}} aria-current="page"{{/if}} data-lang-link>{{label}}</a>
+	{{/each}}
+</nav>

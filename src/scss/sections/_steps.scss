@@ -1,0 +1,84 @@
+@use "../mixins" as m;
+
+.how {
+	border-top: 1px solid var(--c-line);
+}
+
+.steps {
+	display: grid;
+	gap: 1.2rem;
+
+	@include m.md {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2rem;
+	}
+
+	&__item {
+		position: relative;
+		padding: 2.4rem;
+		border: 1px solid var(--c-line);
+		border-radius: var(--radius-lg);
+		background: var(--c-surface);
+
+		// Thin connector between cards
+		@include m.md {
+			&:not(:last-child)::after {
+				content: '';
+				position: absolute;
+				top: 4.8rem;
+				right: -2.1rem;
+				width: 2rem;
+				height: 1px;
+				background: var(--c-line-strong);
+			}
+		}
+	}
+
+	&__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 2.4rem;
+
+		@include m.md {
+			margin-bottom: 4rem;
+		}
+	}
+
+	&__num {
+		color: var(--c-accent);
+		font-family: var(--font-mono);
+		font-size: 1.3rem;
+		font-weight: 600;
+		letter-spacing: .04em;
+	}
+
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 4.8rem;
+		height: 4.8rem;
+		border: 1px solid var(--c-line);
+		border-radius: var(--radius);
+		background: var(--c-bg);
+
+		.icon {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+	}
+
+	&__title {
+		font-size: 2rem;
+		font-weight: 650;
+		line-height: 1.25;
+		letter-spacing: -.01em;
+	}
+
+	&__text {
+		margin-top: .8rem;
+		color: var(--c-ink-2);
+		font-size: 1.55rem;
+	}
+}

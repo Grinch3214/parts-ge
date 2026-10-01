@@ -1,0 +1,84 @@
+@use "../mixins" as m;
+
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: rgba(244, 243, 239, .9);
+	-webkit-backdrop-filter: saturate(1.4) blur(10px);
+	backdrop-filter: saturate(1.4) blur(10px);
+	border-bottom: 1px solid transparent;
+	transition: border-color .25s ease;
+
+	&.is-scrolled {
+		border-bottom-color: var(--c-line);
+	}
+
+	&__inner {
+		display: flex;
+		align-items: center;
+		gap: 2.4rem;
+		height: var(--header-h);
+	}
+
+	&__nav {
+		display: none;
+		gap: 2.8rem;
+		margin-left: auto;
+
+		@include m.lg {
+			display: flex;
+		}
+
+		a {
+			font-size: 1.5rem;
+			color: var(--c-ink-2);
+			text-decoration: none;
+			transition: color .2s ease;
+
+			@include m.hover {
+				color: var(--c-ink);
+			}
+		}
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		margin-left: auto;
+
+		@include m.lg {
+			margin-left: 0;
+		}
+	}
+
+	&__cta {
+		display: none;
+
+		@include m.md {
+			display: inline-flex;
+		}
+	}
+}
+
+.logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 1rem;
+	color: var(--c-ink);
+	font-size: 1.9rem;
+	font-weight: 700;
+	letter-spacing: -.02em;
+	text-decoration: none;
+
+	&__mark {
+		width: 3.2rem;
+		height: 3.2rem;
+	}
+
+	&__tld {
+		color: var(--c-ink-3);
+		font-weight: 500;
+	}
+}

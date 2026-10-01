@@ -1,0 +1,156 @@
+@use "../mixins" as m;
+
+.delivery {
+	border-top: 1px solid var(--c-line);
+
+	&__grid {
+		display: grid;
+		gap: 3.2rem;
+
+		@include m.lg {
+			grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+			align-items: start;
+			gap: 6.4rem;
+		}
+
+		.section__head {
+			margin-bottom: 0;
+		}
+	}
+
+	&__card {
+		padding: .4rem 2rem;
+		border: 1px solid var(--c-line);
+		border-radius: var(--radius-lg);
+		background: var(--c-surface);
+
+		@include m.md {
+			padding: .8rem 3.2rem;
+		}
+	}
+
+	&__note {
+		display: flex;
+		gap: 1rem;
+		padding: 2rem 0;
+		border-top: 1px solid var(--c-line);
+		color: var(--c-ink-2);
+		font-size: 1.4rem;
+		line-height: 1.5;
+
+		.icon {
+			margin-top: .1rem;
+			color: var(--c-ink-3);
+		}
+	}
+}
+
+.route {
+	display: grid;
+	// Mobile: time goes under the name so the note isn't squeezed into a narrow column
+	grid-template-areas:
+		"code info"
+		"code time"
+		"bar bar";
+	grid-template-columns: 4.8rem minmax(0, 1fr);
+	gap: .6rem 1.6rem;
+	padding: 2rem 0;
+
+	@include m.sm {
+		grid-template-areas:
+			"code info time"
+			"bar bar bar";
+		grid-template-columns: 4.8rem minmax(0, 1fr) auto;
+		gap: 1.4rem 1.6rem;
+	}
+
+	& + & {
+		border-top: 1px solid var(--c-line);
+	}
+
+	&__code {
+		grid-area: code;
+		align-self: start;
+		margin-top: .2rem;
+		padding: .5rem 0;
+		border: 1px solid var(--c-line-strong);
+		border-radius: 4px;
+		color: var(--c-ink-2);
+		font-family: var(--font-mono);
+		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: .06em;
+		text-align: center;
+	}
+
+	&__info {
+		grid-area: info;
+		display: flex;
+		flex-direction: column;
+		gap: .2rem;
+	}
+
+	&__name {
+		font-size: 1.7rem;
+		font-weight: 600;
+	}
+
+	&__note {
+		color: var(--c-ink-3);
+		font-size: 1.4rem;
+		line-height: 1.4;
+	}
+
+	&__time {
+		grid-area: time;
+		font-size: 1.6rem;
+		font-weight: 650;
+
+		@include m.sm {
+			font-size: 1.7rem;
+			text-align: right;
+			white-space: nowrap;
+		}
+	}
+
+	// Relative duration — a hint, not a promise
+	&__bar {
+		grid-area: bar;
+		height: 4px;
+		margin-top: .8rem;
+
+		@include m.sm {
+			margin-top: 0;
+		}
+
+		overflow: hidden;
+		border-radius: 2px;
+		background: var(--c-sunken);
+
+		span {
+			display: block;
+			width: calc(var(--scale) * 100%);
+			min-width: 6%;
+			height: 100%;
+			border-radius: 2px;
+			background: var(--c-ink);
+			transform: scaleX(0);
+			transform-origin: left center;
+			transition: transform 1.1s var(--ease-out);
+			transition-delay: calc(.25s + var(--d) * 120ms);
+		}
+
+		&--unknown {
+			background: repeating-linear-gradient(90deg, var(--c-line-strong) 0 6px, transparent 6px 12px);
+
+			span {
+				display: none;
+			}
+		}
+	}
+}
+
+.is-revealed .route__bar span,
+.no-js .route__bar span {
+	transform: scaleX(1);
+}

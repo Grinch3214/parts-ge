@@ -1,0 +1,112 @@
+.success {
+	outline: none;
+
+	&__icon {
+		width: 5.6rem;
+		height: 5.6rem;
+
+		circle {
+			fill: var(--c-success-soft);
+		}
+
+		path {
+			fill: none;
+			stroke: var(--c-success);
+			stroke-width: 3;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-dasharray: 34;
+			stroke-dashoffset: 34;
+		}
+	}
+
+	&.is-active &__icon path {
+		animation: draw .55s .25s var(--ease-out) forwards;
+	}
+
+	&__title {
+		margin-top: 2rem;
+		font-size: 2.6rem;
+		font-weight: 650;
+		line-height: 1.2;
+		letter-spacing: -.02em;
+		outline: none;
+	}
+
+	&__id {
+		font-family: var(--font-mono);
+		font-weight: 600;
+		letter-spacing: 0;
+	}
+
+	&__text {
+		margin-top: .8rem;
+		color: var(--c-ink-2);
+	}
+
+	&__next {
+		margin-top: 2.8rem;
+		color: var(--c-ink-3);
+		font-family: var(--font-mono);
+		font-size: 1.2rem;
+		letter-spacing: .08em;
+		text-transform: uppercase;
+	}
+
+	&__steps {
+		margin-top: 1.2rem;
+		counter-reset: step;
+
+		li {
+			display: grid;
+			grid-template-columns: 3.2rem 1fr;
+			gap: 1rem;
+			padding: 1.2rem 0;
+			border-top: 1px solid var(--c-line);
+			font-size: 1.55rem;
+			line-height: 1.45;
+			counter-increment: step;
+
+			&::before {
+				content: counter(step, decimal-leading-zero);
+				padding-top: .2rem;
+				color: var(--c-accent);
+				font-family: var(--font-mono);
+				font-size: 1.3rem;
+				font-weight: 600;
+			}
+		}
+	}
+
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.6rem;
+		margin-top: 2.4rem;
+	}
+
+	&__link {
+		display: inline-flex;
+		align-items: center;
+		gap: .8rem;
+		color: var(--c-ink-2);
+		font-size: 1.5rem;
+		text-decoration: underline;
+		text-decoration-color: var(--c-line-strong);
+		text-underline-offset: 3px;
+	}
+}
+
+@keyframes draw {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+// With reduced motion the check is simply shown
+@media (prefers-reduced-motion: reduce) {
+	.success__icon path {
+		stroke-dashoffset: 0;
+	}
+}

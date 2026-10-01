@@ -1,0 +1,112 @@
+@use "../mixins" as m;
+
+.faq {
+	&__grid {
+		display: grid;
+		gap: 3.2rem;
+
+		@include m.lg {
+			grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+			align-items: start;
+			gap: 6.4rem;
+		}
+	}
+
+	&__head {
+		margin-bottom: 0;
+
+		@include m.lg {
+			position: sticky;
+			top: calc(var(--header-h) + 3.2rem);
+		}
+	}
+
+	&__aside {
+		margin-top: 1.6rem;
+		color: var(--c-ink-2);
+		font-size: 1.55rem;
+
+		a {
+			color: var(--c-ink);
+			font-weight: 600;
+			text-decoration-color: var(--c-line-strong);
+			text-underline-offset: 3px;
+		}
+	}
+
+	&__list {
+		border-top: 1px solid var(--c-line-strong);
+	}
+
+	&__item {
+		border-bottom: 1px solid var(--c-line-strong);
+	}
+
+	&__q {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		min-height: 6.4rem;
+		padding: 1.8rem 0;
+		font-size: 1.7rem;
+		font-weight: 600;
+		line-height: 1.35;
+		list-style: none;
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+
+		&::-webkit-details-marker {
+			display: none;
+		}
+
+		&::marker {
+			content: '';
+		}
+
+		@include m.hover {
+			.faq__icon {
+				border-color: var(--c-ink);
+			}
+		}
+	}
+
+	&__icon {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 3.2rem;
+		height: 3.2rem;
+		border: 1px solid var(--c-line-strong);
+		border-radius: var(--radius-sm);
+		transition:
+			transform .3s var(--ease-out),
+			background-color .2s ease,
+			border-color .2s ease,
+			color .2s ease;
+
+		.icon {
+			width: 1.4rem;
+			height: 1.4rem;
+		}
+	}
+
+	&__item[open]:not(.is-closing) &__icon {
+		transform: rotate(45deg);
+		border-color: var(--c-ink);
+		background: var(--c-ink);
+		color: #fff;
+	}
+
+	&__a {
+		overflow: hidden;
+
+		p {
+			max-width: 64rem;
+			padding: 0 4.8rem 2.4rem 0;
+			color: var(--c-ink-2);
+			font-size: 1.6rem;
+		}
+	}
+}
