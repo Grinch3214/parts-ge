@@ -145,6 +145,15 @@
 	will-change: translate;
 }
 
+// The disc turns with page scroll like a rolling wheel (--spin set by parallax.js);
+// the transition gives it a soft inertia after each scroll step. The caliper doesn't move.
+.d-disc {
+	transform-box: view-box;
+	transform-origin: 50% 50%;
+	rotate: var(--spin, 0deg);
+	transition: rotate .9s var(--ease-out);
+}
+
 @keyframes drawing-line {
 	to {
 		stroke-dashoffset: 0;

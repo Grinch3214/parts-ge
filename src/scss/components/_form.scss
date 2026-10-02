@@ -475,3 +475,18 @@
 		text-decoration-color: currentColor;
 	}
 }
+
+// WhatsApp fallback inside the send-error alert
+.form-alert__link {
+	display: inline-block;
+	margin-top: .6rem;
+	color: #7a1b12;
+	font-weight: 600;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+
+	// keep the phone number on one line
+	span {
+		white-space: nowrap;
+	}
+}

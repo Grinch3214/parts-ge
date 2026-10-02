@@ -35,6 +35,8 @@ export default defineConfig(({ command, mode }) => {
 				helpers: {
 					// Safe for <script type="application/ld+json"> and <script type="application/json">
 					json: value => JSON.stringify(value ?? null).replace(/</g, '\\u003c'),
+					// {{hours text}} — puts working hours (site.json → hours) into a translated string: "… {hours}" → "… 10:00–18:00"
+					hours: (text, options) => String(text ?? '').replaceAll('{hours}', options.data.root.hoursDisplay),
 				},
 			}),
 			mockApi(env),

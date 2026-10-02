@@ -110,3 +110,23 @@
 		stroke-dashoffset: 0;
 	}
 }
+
+// "Outside working hours — we'll pick it up tomorrow from 10:00"
+.success__hours {
+	display: flex;
+	gap: .8rem;
+	margin-top: 1.6rem;
+	padding: 1.2rem 1.4rem;
+	border-radius: var(--radius);
+	background: var(--c-accent-soft);
+	color: var(--c-ink);
+	font-size: 1.45rem;
+	line-height: 1.45;
+
+	.icon {
+		width: 1.8rem;
+		height: 1.8rem;
+		margin-top: .1rem;
+		color: var(--c-accent-ink);
+	}
+}

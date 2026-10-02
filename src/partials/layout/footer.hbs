@@ -6,6 +6,9 @@
 		</div>
 		<div class="footer__meta">
 			{{> components/lang-switch}}
+			<a class="footer__phone" href="{{links.tel}}">{{site.phoneDisplay}}</a>
+			<a class="footer__phone" href="{{links.whatsapp}}" target="_blank" rel="noopener">{{t.contact.whatsapp}}</a>
+			<p>{{hours t.contact.hours}}</p>
 			<p>© {{year}} {{site.domain}}</p>
 		</div>
 	</div>

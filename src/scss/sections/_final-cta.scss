@@ -86,3 +86,36 @@
 		font-size: 1.4rem;
 	}
 }
+
+// "Prefer to message? WhatsApp · +995 …" — quiet alternative under the main button
+.final-cta__alt {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: .4rem .8rem;
+	margin-top: 1.6rem;
+	color: var(--c-dark-ink-2);
+	font-size: 1.45rem;
+
+	a {
+		display: inline-flex;
+		align-items: center;
+		gap: .6rem;
+		color: var(--c-dark-ink);
+		font-weight: 500;
+		text-decoration: underline;
+		text-decoration-color: rgba(255, 255, 255, .25);
+		text-underline-offset: 3px;
+		transition: text-decoration-color .2s ease;
+
+		@include m.hover {
+			text-decoration-color: currentColor;
+		}
+	}
+
+	.icon {
+		width: 1.6rem;
+		height: 1.6rem;
+	}
+}

@@ -116,7 +116,11 @@
 
 		<div class="form-alert" role="alert" data-alert hidden>
 			{{> components/icon name="alert"}}
-			<p data-alert-text></p>
+			<div>
+				<p data-alert-text></p>
+				{{!-- Shown for send failures, so the request is never lost --}}
+				<a class="form-alert__link" href="{{links.whatsapp}}" target="_blank" rel="noopener" data-alert-fallback hidden>{{t.contact.fallback}}: <span>{{site.phoneDisplay}}</span></a>
+			</div>
 		</div>
 
 		<button class="btn btn--primary btn--lg btn--block request__submit" type="submit" data-submit>
@@ -127,7 +131,7 @@
 
 		<p class="request__note">
 			{{> components/icon name="clock"}}
-			<span>{{t.form.note}}</span>
+			<span>{{hours t.form.note}}</span>
 		</p>
 	</form>
 
@@ -138,6 +142,7 @@
 		</svg>
 		<h2 class="success__title" tabindex="-1" data-success-title></h2>
 		<p class="success__text">{{t.success.text}}</p>
+		<p class="success__hours" data-success-hours hidden>{{> components/icon name="clock"}}<span data-success-hours-text></span></p>
 
 		<p class="success__next">{{t.success.nextTitle}}</p>
 		<ol class="success__steps">

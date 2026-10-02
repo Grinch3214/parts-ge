@@ -105,8 +105,9 @@ function leaders() {
 	].join('')).join('')
 }
 
+// The disc is wrapped in <g class="d-disc"> so it can rotate on scroll while the caliper stays put
 export function brakeDrawing() {
-	const svg = `<svg class="drawing__svg" viewBox="0 0 ${SIZE} ${SIZE}" aria-hidden="true" focusable="false">${annotations()}${disc()}${caliper()}${leaders()}</svg>`
+	const svg = `<svg class="drawing__svg" viewBox="0 0 ${SIZE} ${SIZE}" aria-hidden="true" focusable="false">${annotations()}<g class="d-disc">${disc()}</g>${caliper()}${leaders()}</svg>`
 
 	const callouts = CALLOUTS.map(({ text, label: [x, y], side = 'right', accent = false }) => ({
 		text,

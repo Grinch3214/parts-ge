@@ -19,7 +19,10 @@ export function localeFromPagePath(pagePath) {
     : DEFAULT_LOCALE;
 }
 
-const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
+// ISO weekday 1–7 (Mon–Sun) → schema.org day names
+const SCHEMA_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+const readJson =(file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
 
 // Builds the Handlebars context for a page: texts for its language + shared site data.
 // Files are re-read on every call so edits to JSON show up on dev-server reload.
@@ -46,6 +49,12 @@ export function createPageContext(root, { isDev = false } = {}) {
       active: l.code === lang,
     }));
 
+    // Secondary contact (the form is the main way in). wa.me opens WhatsApp on phone and WhatsApp Web on desktop.
+    const links = {
+      whatsapp: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t.contact.waText)}`,
+      tel: `tel:${site.phone}`,
+    };
+
     const schema = {
       business: {
         '@context': 'https://schema.org',
@@ -54,6 +63,7 @@ export function createPageContext(root, { isDev = false } = {}) {
         name: site.name,
         url: canonical,
         description: t.meta.description,
+        telephone: site.phone,
         image: `${base}/og.png`,
         address: {
           '@type': 'PostalAddress',
@@ -62,6 +72,12 @@ export function createPageContext(root, { isDev = false } = {}) {
         },
         areaServed: { '@type': 'City', name: 'Batumi' },
         knowsLanguage: LOCALES.map((l) => l.code),
+        openingHoursSpecification: {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: site.hours.days.map((d) => SCHEMA_DAYS[d - 1]),
+          opens: site.hours.open,
+          closes: site.hours.close,
+        },
       },
       faq: {
         '@context': 'https://schema.org',
@@ -80,6 +96,9 @@ export function createPageContext(root, { isDev = false } = {}) {
       site: { ...site, url: base },
       indexable,
       drawing,
+      links,
+      // "Пн–Сб 10:00–18:00" — used by the {{hours …}} helper
+      hoursDisplay: `${t.contact.days} ${site.hours.open}–${site.hours.close}`,
       locales,
       canonical,
       ogLocale: LOCALES.find((l) => l.code === lang).ogLocale,
@@ -115,6 +134,20 @@ export function createPageContext(root, { isDev = false } = {}) {
         sending: t.form.sending,
         remove: t.form.remove,
         successTitle: t.success.title,
+        // Working hours: the success screen tells after-hours senders when we'll pick the request up
+        hours: {
+          open: Number(site.hours.open.split(':')[0]),
+          close: Number(site.hours.close.split(':')[0]),
+          timezone: site.hours.timezone,
+          days: site.hours.days,
+        },
+        afterHours: {
+          today: t.success.afterHours.today.replace('{open}', site.hours.open),
+          tomorrow: t.success.afterHours.tomorrow.replace('{open}', site.hours.open),
+          // "… займёмся заявкой {day} с 10:00" + day names ready for the sentence ("в понедельник")
+          later: t.success.afterHours.later.replace('{open}', site.hours.open),
+          dayNames: t.success.afterHours.dayNames,
+        },
       },
     };
   };

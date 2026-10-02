@@ -29,7 +29,7 @@
     "trust": [
       {
         "icon": "clock",
-        "text": "We usually reply within 30 minutes"
+        "text": "We reply within 30 minutes during working hours, {hours}"
       },
       {
         "icon": "shield",
@@ -108,7 +108,7 @@
     "namePlaceholder": "Name",
     "submit": "Find my part",
     "sending": "Sending…",
-    "note": "We usually reply within 30 minutes. You don’t pay anything until you approve the price.",
+    "note": "During working hours ({hours}) we reply within 30 minutes; evening requests are handled the next morning. You don’t pay anything until you approve the price.",
     "remove": "Remove",
     "errors": {
       "vinRequired": "Enter the VIN — or make, model and year under “More details”",
@@ -131,6 +131,20 @@
   "success": {
     "title": "Request #{id} received",
     "text": "We’ve got your request and will get back to you once we’ve found the options.",
+    "afterHours": {
+      "today": "It’s outside working hours — we’ll pick up your request today from {open} (Batumi time).",
+      "tomorrow": "It’s outside working hours — we’ll pick up your request tomorrow from {open} (Batumi time).",
+      "later": "It’s outside working hours — we’ll pick up your request {day} from {open} (Batumi time).",
+      "dayNames": [
+        "on Monday",
+        "on Tuesday",
+        "on Wednesday",
+        "on Thursday",
+        "on Friday",
+        "on Saturday",
+        "on Sunday"
+      ]
+    },
     "nextTitle": "What happens next",
     "next": [
       "We check availability with our suppliers",
@@ -341,15 +355,24 @@
   },
   "finalCta": {
     "eyebrow": "Request",
-    "title": "No need to look for us in messengers",
-    "text": "Send a request — we’ll find the right part and contact you ourselves in your preferred messenger.",
+    "title": "Send a request — we’ll do the rest",
+    "text": "We’ll find the right part and contact you ourselves in your preferred messenger.",
     "points": [
-      "We usually reply within 30 minutes",
+      "We reply within 30 minutes · {hours}",
       "No payment until you approve the price",
       "Matched by VIN — no trim mix-ups"
     ],
     "cta": "Get a price",
     "city": "Batumi, Georgia"
+  },
+  "contact": {
+    "waText": "Hello! I need a car part. VIN: ",
+    "alt": "Prefer to message?",
+    "fallback": "Or message us on WhatsApp",
+    "whatsapp": "WhatsApp",
+    "phoneLabel": "Phone",
+    "days": "Mon–Sat",
+    "hours": "Requests handled: {hours}"
   },
   "footer": {
     "tagline": "Car parts sourcing and delivery in Batumi"

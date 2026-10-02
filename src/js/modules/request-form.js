@@ -41,6 +41,7 @@ export default function initRequestForm() {
 		morePanel: $('[data-more-panel]'),
 		alert: $('[data-alert]'),
 		alertText: $('[data-alert-text]'),
+		alertFallback: $('[data-alert-fallback]'),
 		submit: $('[data-submit]'),
 		submitLabel: $('[data-submit-label]'),
 		captcha: $('[data-turnstile]'),
@@ -76,8 +77,10 @@ export default function initRequestForm() {
 		return !code
 	}
 
-	function showAlert(message) {
+	// fallback: also offer WhatsApp — for send failures, so the request is never lost
+	function showAlert(message, { fallback = false } = {}) {
 		els.alertText.textContent = message
+		els.alertFallback.hidden = !fallback
 		els.alert.hidden = false
 	}
 
@@ -302,7 +305,7 @@ export default function initRequestForm() {
 				const first = FIELD_ORDER.find(name => error.fields[name])
 				if (first) focusField(first)
 			}
-			showAlert(t.errors[error.code] || t.errors.server)
+			showAlert(t.errors[error.code] || t.errors.server, { fallback: !error.fields })
 			if (turnstileWidget !== null) window.turnstile?.reset(turnstileWidget)
 		} finally {
 			setSending(false)
@@ -318,10 +321,44 @@ export default function initRequestForm() {
 		idNode.textContent = id
 		title.replaceChildren(before, idNode, after)
 
+		showAfterHoursNote()
 		await swapPanels(root, form, success)
 		success.classList.add('is-active')
 		scrollIntoViewBelowHeader(root)
 		title.focus({ preventScroll: true })
+	}
+
+	// '' during working hours; otherwise "…today / tomorrow / on Monday from 10:00".
+	// Weekday and hour are taken in Batumi time, whatever the visitor's own timezone.
+	function afterHoursText(now) {
+		const parts = Object.fromEntries(
+			new Intl.DateTimeFormat('en-GB', { timeZone: t.hours.timezone, weekday: 'short', hour: '2-digit', hourCycle: 'h23' })
+				.formatToParts(now)
+				.map(({ type, value }) => [type, value])
+		)
+		const day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(parts.weekday) + 1 // ISO 1–7
+		const hour = Number(parts.hour)
+		const { open, close, days } = t.hours
+
+		if (days.includes(day)) {
+			if (hour < open) return t.afterHours.today
+			if (hour < close) return ''
+		}
+		// Next working day after today
+		for (let step = 1; step <= 7; step++) {
+			const next = ((day - 1 + step) % 7) + 1
+			if (!days.includes(next)) continue
+			return step === 1 ? t.afterHours.tomorrow : t.afterHours.later.replace('{day}', t.afterHours.dayNames[next - 1])
+		}
+		return ''
+	}
+
+	// Outside working hours (Batumi time) say when the request will be picked up
+	function showAfterHoursNote(now = new Date()) {
+		const note = success.querySelector('[data-success-hours]')
+		const text = afterHoursText(now)
+		note.querySelector('[data-success-hours-text]').textContent = text
+		note.hidden = !text
 	}
 
 	// The success panel is shorter than the form, so its top can end up under the sticky header
