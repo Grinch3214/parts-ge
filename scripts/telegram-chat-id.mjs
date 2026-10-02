@@ -9,6 +9,8 @@ if (!token) {
 const response = await fetch(`https://api.telegram.org/bot${token}/getUpdates`)
 const data = await response.json()
 if (!data.ok) {
+	// 409 Conflict: a webhook is set (card buttons) — getUpdates doesn't work while it is
+	if (data.error_code === 409) console.error('Включён webhook для кнопок. Временно выключите: npm run tg:webhook -- --delete')
 	console.error('Telegram ответил ошибкой:', data.description)
 	process.exit(1)
 }

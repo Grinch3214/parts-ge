@@ -59,6 +59,7 @@ src/
 | `server/handle-request.js` | Вся логика эндпоинта: лимит, антиспам, Turnstile, валидация, номер заявки. Там же описан контракт ответов |
 | `server/telegram.js` | Карточка заявки + фото в группу через Bot API |
 | `netlify/functions/request.mjs` | Обёртка для Netlify (production) |
+| `server/telegram-webhook.js` + `netlify/functions/telegram-webhook.mjs` | Кнопки под карточкой: «Взял в работу» / «Обработана». Статус хранится в тексте карточки |
 | `server/mock-api.js` | То же для `npm run dev` / `preview`. Без секретов — только лог в консоль |
 
 Фото сжимаются в браузере (до 1920px, JPEG) — лимит тела запроса у Netlify 6 МБ.
@@ -71,11 +72,13 @@ src/
 | --- | --- | --- |
 | `TELEGRAM_BOT_TOKEN` | сервер | токен от @BotFather |
 | `TELEGRAM_CHAT_ID` | сервер | ID группы (`npm run tg:chat-id`) |
+| `TELEGRAM_WEBHOOK_SECRET` | сервер | защищает `/api/telegram-webhook` (кнопки статуса) |
 | `TURNSTILE_SECRET_KEY` | сервер | необязательно, проверка капчи |
 | `VITE_TURNSTILE_SITE_KEY` | браузер | необязательно, показ капчи |
 | `SITE_URL` | сборка | необязательно; на Netlify подставляется сам |
 
 `npm run tg:test` — отправить тестовую заявку в группу.
+`npm run tg:webhook -- https://<сайт>` — включить кнопки статуса (после деплоя); `-- --delete` — выключить.
 
 ### Деплой (Netlify)
 

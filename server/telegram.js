@@ -56,7 +56,22 @@ export function contactButton(method, contact) {
 	return null
 }
 
-async function callApi(token, method, payload) {
+// Buttons under a card for each status. The contact button (if any) stays on top at every stage.
+// callback_data goes to the webhook (server/telegram-webhook.js), which edits the card.
+export function cardKeyboard(contact, status = 'new') {
+	const rows = contact ? [[contact]] : []
+	if (status === 'new') rows.push([{ text: '🟡 Взял в работу', callback_data: 'take' }])
+	if (status === 'taken') {
+		rows.push([
+			{ text: '✅ Обработана', callback_data: 'done' },
+			{ text: '↩️ Снять', callback_data: 'reset' },
+		])
+	}
+	if (status === 'done') rows.push([{ text: '↩️ Вернуть в работу', callback_data: 'take' }])
+	return { inline_keyboard: rows }
+}
+
+export async function callApi(token, method, payload) {
 	const isMultipart = payload instanceof FormData
 	const response = await fetch(`${API}/bot${token}/${method}`, {
 		method: 'POST',
@@ -100,7 +115,7 @@ export async function sendToTelegram({ token, chatId }, request) {
 		text: buildCard(request),
 		parse_mode: 'HTML',
 		link_preview_options: { is_disabled: true },
-		...(button && { reply_markup: { inline_keyboard: [[button]] } }),
+		reply_markup: cardKeyboard(button, 'new'),
 	})
 
 	const files = request.files.map(({ file, label }) => ({ file, caption: `№ ${request.id} · ${label}` }))

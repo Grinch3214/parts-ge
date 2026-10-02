@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "tg:chat-id": "node --env-file=.env.local scripts/telegram-chat-id.mjs",
-    "tg:test": "node --env-file=.env.local scripts/telegram-test.mjs"
+    "tg:test": "node --env-file=.env.local scripts/telegram-test.mjs",
+    "tg:webhook": "node --env-file=.env.local scripts/telegram-webhook.mjs"
   },
   "browserslist": [
     "last 2 versions",
