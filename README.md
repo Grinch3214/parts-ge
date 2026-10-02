@@ -80,7 +80,11 @@ src/
 `npm run tg:test` — отправить тестовую заявку в группу.
 `npm run tg:webhook -- https://<сайт>` — включить кнопки статуса (после деплоя); `-- --delete` — выключить.
 
-### Деплой (Netlify)
+### Деплой (Cloudflare Pages — основной)
+
+Build command `npm run build`, output `dist`, переменная `NODE_VERSION=22`. Серверные функции — `functions/api/*.js` (тонкие обёртки над `server/`). Секреты — Pages → Settings → Variables and Secrets. Каждый `git push` деплоит.
+
+### Деплой (Netlify — тестовый, можно удалить после переезда)
 
 Настройки сборки — в `netlify.toml`. Подключить репозиторий в Netlify → задать переменные → каждый `git push` деплоит.
 Пока сайт открыт не на основном домене (`site.json → url`), страницы помечаются `noindex`.
