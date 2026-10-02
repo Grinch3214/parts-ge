@@ -1,6 +1,6 @@
 @use "../mixins" as m;
 
-// Mobile-only bottom bar: WhatsApp | Telegram | CTA
+// Mobile-only bottom bar with the single call to action
 .floating {
 	position: fixed;
 	right: 1.2rem;
@@ -8,8 +8,6 @@
 	left: 1.2rem;
 	z-index: 60;
 	display: grid;
-	grid-template-columns: 5.2rem 5.2rem 1fr;
-	gap: .8rem;
 	padding: .8rem;
 	border: 1px solid var(--c-line);
 	border-radius: 1.4rem;
@@ -39,29 +37,10 @@
 		display: none;
 	}
 
-	&__icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 5.2rem;
-		border: 1px solid var(--c-line);
-		border-radius: var(--radius);
-		background: var(--c-surface-2);
-		transition: transform .15s var(--ease-out);
-
-		&:active {
-			transform: scale(.95);
-		}
-
-		.icon {
-			width: 2.6rem;
-			height: 2.6rem;
-		}
-	}
 
 	&__cta {
 		min-height: 5.2rem;
-		padding: 0 1.2rem;
-		font-size: 1.55rem;
+		padding: 0 1.6rem;
+		font-size: 1.6rem;
 	}
 }

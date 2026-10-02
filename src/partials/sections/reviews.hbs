@@ -1,0 +1,30 @@
+<section class="section reviews{{#if reviews.placeholder}} reviews--placeholder{{/if}}" id="reviews" aria-labelledby="reviews-title">
+	<div class="container">
+		{{> components/rule code="REVIEWS"}}
+
+		<header class="section__head" data-reveal>
+			<p class="eyebrow">{{t.reviews.eyebrow}}</p>
+			<h2 class="section__title" id="reviews-title">{{t.reviews.title}}</h2>
+			{{#if reviews.placeholder}}
+			<p class="reviews__placeholder">DEV · {{t.reviews.placeholderNote}}</p>
+			{{/if}}
+		</header>
+
+		<ul class="reviews__grid">
+			{{#each t.reviews.items}}
+			<li class="review" data-reveal style="--d: {{@index}}">
+				<div class="review__top">
+					<span class="review__stars" role="img" aria-label="{{@root.t.reviews.ratingLabel}}">
+						{{> components/icon name="star"}}{{> components/icon name="star"}}{{> components/icon name="star"}}{{> components/icon name="star"}}{{> components/icon name="star"}}
+					</span>
+				</div>
+				<blockquote class="review__text"><p>{{text}}</p></blockquote>
+				<p class="review__author">
+					<span class="review__name">{{name}}</span>
+					<span class="review__car">{{car}}</span>
+				</p>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</section>

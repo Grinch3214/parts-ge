@@ -1,11 +1,13 @@
 <section class="section faq" id="faq" aria-labelledby="faq-title">
 	<div class="container faq__grid">
+		{{> components/rule code="FAQ"}}
+
 		<header class="section__head faq__head" data-reveal>
 			<p class="eyebrow">{{t.faq.eyebrow}}</p>
 			<h2 class="section__title" id="faq-title">{{t.faq.title}}</h2>
 			<p class="faq__aside">
 				{{t.faq.aside}}
-				<a href="{{links.whatsapp}}" target="_blank" rel="noopener">{{t.faq.asideLink}}</a>
+				<a href="#request" data-to-form>{{t.faq.asideLink}}</a>
 			</p>
 		</header>
 

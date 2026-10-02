@@ -26,7 +26,7 @@
 
 		&:focus-within {
 			border-color: var(--c-ink);
-			outline: 2px solid var(--c-accent);
+			outline: 2px solid var(--c-focus);
 			outline-offset: 2px;
 		}
 	}

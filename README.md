@@ -18,7 +18,7 @@ npm run preview   # проверить сборку (mock API тоже рабо�
 | Тексты (RU / UA / EN) | `src/i18n/ru.json`, `uk.json`, `en.json` |
 | Сроки доставки (текст) | `src/i18n/*.json` → `delivery.items` |
 | Длина полосок сроков (0–1, `0` = «уточняем») | `src/data/site.json` → `delivery` |
-| Телефон, WhatsApp, Telegram, Viber, домен | `src/data/site.json` (сейчас заглушки) |
+| Домен, название | `src/data/site.json` |
 | Цвета, шрифты, радиусы | `src/scss/_vars.scss` |
 | Разметка секций | `src/partials/sections/*.hbs` |
 | Иконки (SVG-спрайт) | `src/partials/layout/icons.hbs` |
@@ -42,7 +42,7 @@ src/
 ├── data/site.json         # контакты и настройки, общие для всех языков
 ├── partials/
 │   ├── layout/            # head, header, footer, page, icons
-│   ├── sections/          # hero, how-it-works, benefits, delivery, auction-cars, faq, contacts
+│   ├── sections/          # hero, how-it-works, benefits, delivery, auction-cars, reviews, faq, final-cta
 │   └── components/        # request-form, vin-plate, lang-switch, floating-actions, logo, icon
 ├── js/
 │   ├── config.js          # VITE_API_ENDPOINT, VITE_TURNSTILE_SITE_KEY

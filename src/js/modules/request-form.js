@@ -1,5 +1,5 @@
 import { API_ENDPOINT, TURNSTILE_SITE_KEY, DRAFT_KEY } from '../config.js'
-import { normalizeVin, validateVin, validatePart, validateContact, VIN_LENGTH, MAX_PART_PHOTOS, MAX_UPLOAD_BYTES } from './validation.js'
+import { normalizeVin, validateVin, validateVehicle, validatePart, validateContact, VIN_LENGTH, MAX_PART_PHOTOS, MAX_UPLOAD_BYTES } from './validation.js'
 import { FilePicker } from './file-picker.js'
 import { compressImage } from './image-compress.js'
 import { createDraft } from './draft.js'
@@ -32,6 +32,8 @@ export default function initRequestForm() {
 		vinCounter: $('[data-vin-counter]'),
 		vinHelp: $('[data-vin-help]'),
 		vinWhere: $('#vin-where'),
+		noVin: $('[data-no-vin]'),
+		car: $('#f-car'),
 		part: $('#f-part'),
 		contact: $('#f-contact'),
 		contactLabel: $('[data-contact-label]'),
@@ -62,7 +64,7 @@ export default function initRequestForm() {
 	const validators = {
 		vin: () => {
 			const vin = normalizeVin(els.vin.value)
-			return [validateVin(vin), { n: vin.length }]
+			return [validateVehicle(vin, els.car.value), { n: vin.length }]
 		},
 		part: () => [validatePart(els.part.value)],
 		contact: () => [validateContact(method(), els.contact.value)],
@@ -113,6 +115,16 @@ export default function initRequestForm() {
 		const open = els.vinHelp.getAttribute('aria-expanded') !== 'true'
 		els.vinHelp.setAttribute('aria-expanded', String(open))
 		els.vinWhere.hidden = !open
+	})
+
+	// No VIN at hand → make/model/year in the details panel is enough
+	els.noVin.addEventListener('click', () => {
+		setMore(true)
+		setTimeout(() => els.car.focus(), 250)
+	})
+
+	els.car.addEventListener('input', () => {
+		if (errors.vin) validate('vin')
 	})
 
 	// ── Part photos ───────────────────────────────────────────
@@ -308,8 +320,15 @@ export default function initRequestForm() {
 
 		await swapPanels(root, form, success)
 		success.classList.add('is-active')
-		if (root.getBoundingClientRect().top < 0) root.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })
+		scrollIntoViewBelowHeader(root)
 		title.focus({ preventScroll: true })
+	}
+
+	// The success panel is shorter than the form, so its top can end up under the sticky header
+	function scrollIntoViewBelowHeader(element, gap = 16) {
+		const headerHeight = document.querySelector('[data-header]')?.offsetHeight ?? 0
+		const offset = element.getBoundingClientRect().top - headerHeight - gap
+		if (offset < 0) window.scrollBy({ top: offset, behavior: scrollBehavior() })
 	}
 
 	success.querySelector('[data-again]').addEventListener('click', async () => {

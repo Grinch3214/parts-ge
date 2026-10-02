@@ -2,11 +2,15 @@
 
 .request {
 	position: relative;
-	padding: 2.4rem 2rem;
+	color: var(--c-ink); // it sits on the dark hero — don't inherit light text
+	padding: 2.4rem 1.6rem;
 	border: 1px solid var(--c-line);
 	border-radius: var(--radius-lg);
 	background: var(--c-surface);
-	box-shadow: var(--shadow-card);
+	// Accent strip on top + deep shadow: the form must pop off the dark hero
+	box-shadow:
+		inset 0 4px 0 var(--c-accent),
+		0 30px 60px -24px rgba(0, 0, 0, .55);
 
 	@include m.sm {
 		padding: 3.2rem;
@@ -296,7 +300,7 @@
 	}
 
 	input:focus-visible + .chip__body {
-		outline: 2px solid var(--c-accent);
+		outline: 2px solid var(--c-focus);
 		outline-offset: 2px;
 	}
 
@@ -358,10 +362,16 @@
 	}
 
 	&__optional {
+		display: none;
 		margin-left: auto;
 		color: var(--c-ink-3);
 		font-size: 1.3rem;
 		font-weight: 400;
+
+		// On narrow phones the label alone fits one line; "optional" is implied
+		@media (min-width: 400px) {
+			display: inline;
+		}
 	}
 
 	&__panel {
@@ -427,5 +437,41 @@
 	.icon {
 		margin-top: .1rem;
 		color: var(--c-error);
+	}
+}
+
+// Technical tag above the form title: "PARTS REQUEST    № ––––"
+.request__tag {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1.4rem;
+	padding-bottom: 1.2rem;
+	border-bottom: 1px dashed var(--c-line-strong);
+	color: var(--c-ink-3);
+	font-family: var(--font-mono);
+	font-size: 1.1rem;
+	font-weight: 500;
+	letter-spacing: .14em;
+
+	span:first-child {
+		color: var(--c-accent-ink);
+	}
+}
+
+// Text-style button inside a hint ("Нет VIN под рукой? Укажите марку, модель и год")
+.field__link {
+	display: inline;
+	padding: 0;
+	color: var(--c-ink-2);
+	font-weight: 500;
+	text-align: left;
+	text-decoration: underline;
+	text-decoration-color: var(--c-line-strong);
+	text-underline-offset: 3px;
+	transition: color .2s ease, text-decoration-color .2s ease;
+
+	@include m.hover {
+		color: var(--c-ink);
+		text-decoration-color: currentColor;
 	}
 }

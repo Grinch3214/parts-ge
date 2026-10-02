@@ -43,6 +43,16 @@ $bp-xl: 1280px;
 	}
 }
 
+// Blueprint paper for dark sections: fine 2rem grid + stronger 10rem grid
+@mixin blueprint-grid($minor: .035, $major: .07) {
+	background-image:
+		linear-gradient(to right, rgba(255, 255, 255, $major) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(255, 255, 255, $major) 1px, transparent 1px),
+		linear-gradient(to right, rgba(255, 255, 255, $minor) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(255, 255, 255, $minor) 1px, transparent 1px);
+	background-size: 10rem 10rem, 10rem 10rem, 2rem 2rem, 2rem 2rem;
+}
+
 @mixin motion {
 	@media (prefers-reduced-motion: no-preference) {
 		@content;

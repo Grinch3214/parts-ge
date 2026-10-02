@@ -1,0 +1,93 @@
+@use '../mixins' as m;
+
+.reviews {
+  &__grid {
+    display: grid;
+    gap: 1.2rem;
+
+    @include m.md {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+  }
+}
+
+.review {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  transition:
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s ease;
+
+  @include m.hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__stars {
+    display: inline-flex;
+    gap: 0.2rem;
+    color: var(--c-accent);
+
+    .icon {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  &__source {
+    color: var(--c-ink-3);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    flex: 1;
+    font-size: 1.6rem;
+    line-height: 1.55;
+
+    p::before {
+      content: '“';
+      margin-right: 0.1em;
+      color: var(--c-accent-ink);
+    }
+
+    p::after {
+      content: '”';
+      color: var(--c-accent-ink);
+    }
+  }
+
+  &__author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-top: 1.6rem;
+    border-top: 1px dashed var(--c-line-strong);
+  }
+
+  &__name {
+    font-weight: 600;
+  }
+
+  &__car {
+    color: var(--c-ink-3);
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+  }
+}

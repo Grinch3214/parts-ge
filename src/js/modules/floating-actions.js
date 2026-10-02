@@ -4,7 +4,7 @@ export default function initFloatingActions() {
 	const bar = document.querySelector('[data-floating]')
 	if (!bar || !('IntersectionObserver' in window)) return
 
-	const watched = ['#request', '#contacts', '.footer']
+	const watched = ['#request', '#final-cta', '.footer']
 		.map(selector => document.querySelector(selector))
 		.filter(Boolean)
 	const visible = new Set()

@@ -1,0 +1,7 @@
+{{!-- Technical ruler between sections: "02 ├──┼──┼──┤ PROCESS". Number comes from a CSS counter,
+      so sections can be added or hidden without renumbering. Usage: {{> components/rule code="PROCESS"}} --}}
+<div class="rule" aria-hidden="true" data-reveal>
+	<span class="rule__num"></span>
+	<span class="rule__line"></span>
+	<span class="rule__code">{{code}}</span>
+</div>

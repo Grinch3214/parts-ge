@@ -7,6 +7,10 @@
 	border-radius: var(--radius);
 	background: var(--c-sunken);
 
+	.header & {
+		background: rgba(255, 255, 255, .07);
+	}
+
 	&__link {
 		display: inline-flex;
 		align-items: center;
@@ -27,6 +31,20 @@
 
 		@include m.hover {
 			color: var(--c-ink);
+		}
+
+		.header & {
+			color: var(--c-dark-ink-2);
+
+			@include m.hover {
+				color: #fff;
+			}
+
+			&.is-active {
+				background: rgba(255, 255, 255, .14);
+				color: #fff;
+				box-shadow: none;
+			}
 		}
 
 		&.is-active {

@@ -1,8 +1,6 @@
 @use "../mixins" as m;
 
 .delivery {
-	border-top: 1px solid var(--c-line);
-
 	&__grid {
 		display: grid;
 		gap: 3.2rem;
@@ -133,7 +131,7 @@
 			min-width: 6%;
 			height: 100%;
 			border-radius: 2px;
-			background: var(--c-ink);
+			background: var(--c-accent);
 			transform: scaleX(0);
 			transform-origin: left center;
 			transition: transform 1.1s var(--ease-out);

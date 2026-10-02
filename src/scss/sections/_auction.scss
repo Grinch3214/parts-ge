@@ -1,8 +1,20 @@
 @use "../mixins" as m;
 
 .auction {
+	position: relative;
+	isolation: isolate;
 	background: var(--c-dark);
 	color: var(--c-dark-ink);
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		@include m.blueprint-grid(.025, .05);
+		-webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+		mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+	}
 
 	.eyebrow {
 		color: var(--c-dark-ink-2);

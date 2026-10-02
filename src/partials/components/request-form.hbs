@@ -1,6 +1,7 @@
 <div class="request" data-request>
 	<form class="request__form" action="/api/request" method="post" enctype="multipart/form-data" novalidate data-request-form>
 		<div class="request__head">
+			<p class="request__tag" aria-hidden="true"><span>PARTS REQUEST</span><span>№ ––––</span></p>
 			<h2 class="request__title" id="request-title" tabindex="-1">{{t.form.title}}</h2>
 			<p class="request__subtitle">{{t.form.subtitle}}</p>
 		</div>
@@ -21,7 +22,7 @@
 			<p class="field__error" id="vin-error" data-error></p>
 			<p class="field__note">
 				{{t.form.noVin}}
-				<a href="{{links.whatsapp}}" target="_blank" rel="noopener">{{t.form.noVinLink}}</a>
+				<button class="field__link" type="button" data-no-vin>{{t.form.noVinLink}}</button>
 			</p>
 		</div>
 
@@ -147,9 +148,6 @@
 
 		<div class="success__actions">
 			<button class="btn btn--ghost" type="button" data-again>{{t.success.again}}</button>
-			<a class="success__link" href="{{links.whatsapp}}" target="_blank" rel="noopener">
-				{{> components/icon name="whatsapp"}}{{t.success.question}}
-			</a>
 		</div>
 	</div>
 </div>

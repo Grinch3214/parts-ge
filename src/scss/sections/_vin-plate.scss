@@ -4,7 +4,7 @@
 .vin-plate {
 	display: none;
 	max-width: 54rem;
-	margin-top: 4.8rem;
+	margin-bottom: 4rem;
 	padding: 2rem 2.4rem 2.2rem;
 	border: 1px solid var(--c-line);
 	border-radius: var(--radius-lg);
@@ -55,7 +55,7 @@
 		&.is-g1 {
 			border-color: rgba(194, 65, 12, .3);
 			background: var(--c-accent-soft);
-			color: var(--c-accent);
+			color: var(--c-accent-ink);
 		}
 
 		@include m.motion {
@@ -131,7 +131,7 @@
 
 		.icon {
 			margin-top: .1rem;
-			color: var(--c-accent);
+			color: var(--c-accent-ink);
 		}
 	}
 }

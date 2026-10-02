@@ -1,13 +1,8 @@
 {
-  "_todo": "Контакты и домен — заглушки. Заменить на реальные перед запуском.",
+  "_todo": "Домен — пока заглушка до покупки. Контактов на сайте нет намеренно: единственный вход — форма заявки.",
   "name": "Batumi Parts",
   "domain": "batumiparts.ge",
   "url": "https://batumiparts.ge",
-  "phone": "+995555000000",
-  "phoneDisplay": "+995 555 00 00 00",
-  "whatsapp": "995555000000",
-  "telegram": "batumiparts",
-  "viber": "+995555000000",
   "vinSample": "JTDKN3DU5A0123456",
   "delivery": {
     "BAT": 0.1,

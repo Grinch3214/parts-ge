@@ -1,9 +1,22 @@
 <section class="hero" aria-labelledby="hero-title">
+	{{!-- Decorative micro-labels (the drawing itself sits in the intro column, see below) --}}
+	<div class="hero__backdrop" aria-hidden="true">
+		<span class="hero__coords">BATUMI · GEORGIA — 41.62°N 41.64°E</span>
+	</div>
+
 	<div class="container hero__grid">
 		<div class="hero__intro">
 			<p class="eyebrow hero__eyebrow">{{t.hero.eyebrow}}</p>
-			<h1 class="hero__title" id="hero-title">{{t.hero.title}}</h1>
+			<h1 class="hero__title" id="hero-title">
+				{{t.hero.title}} <span class="hero__accent">{{t.hero.titleAccent}}</span>
+			</h1>
 			<p class="hero__lead">{{t.hero.lead}}</p>
+
+			<ol class="pipeline" aria-label="{{t.hero.pipelineLabel}}">
+				{{#each t.hero.pipeline}}
+				<li class="pipeline__step" style="--i: {{@index}}">{{this}}</li>
+				{{/each}}
+			</ol>
 
 			<ul class="hero__trust">
 				{{#each t.hero.trust}}
@@ -11,7 +24,13 @@
 				{{/each}}
 			</ul>
 
-			{{> components/vin-plate}}
+			{{!-- Technical drawing of a brake assembly. Mobile: background behind the headline; desktop: under the text, bleeding off the edges --}}
+			<div class="hero__drawing drawing" aria-hidden="true" data-parallax>
+				{{{drawing.svg}}}
+				{{#each drawing.callouts}}
+				<span class="callout callout--{{side}}{{#if accent}} callout--accent{{/if}}" style="left: {{x}}%; top: {{y}}%; --i: {{@index}}">{{text}}</span>
+				{{/each}}
+			</div>
 		</div>
 
 		<div class="hero__form" id="request">

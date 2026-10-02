@@ -1,7 +1,19 @@
 @use "../mixins" as m;
 
 .how {
-	border-top: 1px solid var(--c-line);
+	&__top {
+		@include m.lg {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			align-items: center;
+			gap: 6.4rem;
+			margin-bottom: 5.6rem;
+
+			.section__head {
+				margin-bottom: 0;
+			}
+		}
+	}
 }
 
 .steps {
@@ -19,17 +31,50 @@
 		border: 1px solid var(--c-line);
 		border-radius: var(--radius-lg);
 		background: var(--c-surface);
+		transition:
+			transform .3s var(--ease-out),
+			box-shadow .3s ease,
+			border-color .3s ease;
+
+		// Accent line along the top edge on hover
+		&::before {
+			content: '';
+			position: absolute;
+			top: -1px;
+			right: 2.4rem;
+			left: 2.4rem;
+			height: 2px;
+			background: var(--c-accent);
+			transform: scaleX(0);
+			transform-origin: left center;
+			transition: transform .45s var(--ease-out);
+		}
+
+		@include m.hover {
+			transform: translateY(-3px);
+			border-color: var(--c-line-strong);
+			box-shadow: var(--shadow-card);
+
+			&::before {
+				transform: scaleX(1);
+			}
+
+			.steps__icon {
+				border-color: var(--c-accent);
+				color: var(--c-accent-ink);
+			}
+		}
 
 		// Thin connector between cards
 		@include m.md {
 			&:not(:last-child)::after {
-				content: '';
+				content: '→';
 				position: absolute;
-				top: 4.8rem;
-				right: -2.1rem;
-				width: 2rem;
-				height: 1px;
-				background: var(--c-line-strong);
+				top: 3.6rem;
+				right: -1.6rem;
+				color: var(--c-accent-ink);
+				font-family: var(--font-mono);
+				font-size: 1.4rem;
 			}
 		}
 	}
@@ -46,7 +91,7 @@
 	}
 
 	&__num {
-		color: var(--c-accent);
+		color: var(--c-accent-ink);
 		font-family: var(--font-mono);
 		font-size: 1.3rem;
 		font-weight: 600;
@@ -62,6 +107,7 @@
 		border: 1px solid var(--c-line);
 		border-radius: var(--radius);
 		background: var(--c-bg);
+		transition: border-color .3s ease, color .3s ease;
 
 		.icon {
 			width: 2.4rem;

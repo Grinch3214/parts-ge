@@ -10,7 +10,7 @@
 //   5xx { ok: false, error: 'server' }
 
 import {
-	normalizeVin, validateVin, validatePart, validateContact, isAcceptedFile,
+	normalizeVin, validateVehicle, validatePart, validateContact, isAcceptedFile,
 	MAX_FILE_SIZE, MAX_PART_PHOTOS, MAX_UPLOAD_BYTES,
 } from '../src/js/modules/validation.js'
 import { sendToTelegram } from './telegram.js'
@@ -99,7 +99,7 @@ export async function handleRequest(request, { env = {}, ip = 'unknown', allowLo
 	const partPhotos = form.getAll('partPhotos').filter(isValidFile).slice(0, MAX_PART_PHOTOS)
 
 	const errors = {}
-	const vinError = validateVin(data.vin)
+	const vinError = validateVehicle(data.vin, data.car)
 	if (vinError) errors.vin = vinError
 	const partError = validatePart(data.part)
 	if (partError) errors.part = partError

@@ -4,14 +4,15 @@
 	position: sticky;
 	top: 0;
 	z-index: 50;
-	background: rgba(244, 243, 239, .9);
+	background: rgba(18, 20, 23, .9);
+	color: var(--c-dark-ink);
 	-webkit-backdrop-filter: saturate(1.4) blur(10px);
 	backdrop-filter: saturate(1.4) blur(10px);
 	border-bottom: 1px solid transparent;
 	transition: border-color .25s ease;
 
 	&.is-scrolled {
-		border-bottom-color: var(--c-line);
+		border-bottom-color: var(--c-dark-line);
 	}
 
 	&__inner {
@@ -32,12 +33,12 @@
 
 		a {
 			font-size: 1.5rem;
-			color: var(--c-ink-2);
+			color: var(--c-dark-ink-2);
 			text-decoration: none;
 			transition: color .2s ease;
 
 			@include m.hover {
-				color: var(--c-ink);
+				color: #fff;
 			}
 		}
 	}
@@ -66,7 +67,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 1rem;
-	color: var(--c-ink);
+	color: inherit;
 	font-size: 1.9rem;
 	font-weight: 700;
 	letter-spacing: -.02em;
@@ -80,4 +81,9 @@
 	&__accent {
 		color: var(--c-accent);
 	}
+}
+
+// Logo on light backgrounds (footer): darker accent for contrast
+.footer .logo__accent {
+	color: var(--c-accent-ink);
 }

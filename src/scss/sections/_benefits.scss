@@ -18,11 +18,30 @@
 }
 
 .benefit {
+	position: relative;
 	padding: 2.4rem 0;
 	border-top: 1px solid var(--c-line-strong);
 
+	// Accent segment grows along the top rule on hover
+	&::before {
+		content: '';
+		position: absolute;
+		top: -1px;
+		left: 0;
+		width: 4rem;
+		height: 2px;
+		background: var(--c-accent);
+		transition: width .45s var(--ease-out);
+	}
+
+	@include m.hover {
+		&::before {
+			width: 100%;
+		}
+	}
+
 	&__icon {
-		color: var(--c-accent);
+		color: var(--c-accent-ink);
 
 		.icon {
 			width: 2.6rem;
@@ -128,10 +147,10 @@
 		&:last-child {
 			border-color: var(--c-accent);
 			background: var(--c-accent);
-			color: #fff;
+			color: var(--c-ink);
 
 			&::before {
-				color: rgba(255, 255, 255, .75);
+				color: rgba(18, 20, 23, .6);
 			}
 		}
 

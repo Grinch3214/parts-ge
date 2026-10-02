@@ -1,0 +1,27 @@
+{{!-- Last call to action. No phone or messengers on the site on purpose: one way in — the request form. --}}
+<section class="section final-cta" id="final-cta" aria-labelledby="final-cta-title">
+	<div class="container">
+		{{> components/rule code="REQUEST"}}
+
+		<div class="final-cta__card" data-reveal>
+			<div class="final-cta__intro">
+				<p class="eyebrow">{{t.finalCta.eyebrow}}</p>
+				<h2 class="section__title" id="final-cta-title">{{t.finalCta.title}}</h2>
+				<p class="final-cta__text">{{t.finalCta.text}}</p>
+			</div>
+
+			<div class="final-cta__action">
+				<ul class="final-cta__points">
+					{{#each t.finalCta.points}}
+					<li>{{> components/icon name="check"}}<span>{{this}}</span></li>
+					{{/each}}
+				</ul>
+				<a class="btn btn--primary btn--lg btn--block" href="#request" data-to-form>
+					{{t.finalCta.cta}}
+					{{> components/icon name="arrow-right" cls="btn__arrow"}}
+				</a>
+				<p class="final-cta__city">{{> components/icon name="pin"}}{{t.finalCta.city}}</p>
+			</div>
+		</div>
+	</div>
+</section>

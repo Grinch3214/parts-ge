@@ -1,9 +1,15 @@
 <section class="section how" id="how" aria-labelledby="how-title">
 	<div class="container">
-		<header class="section__head" data-reveal>
-			<p class="eyebrow">{{t.how.eyebrow}}</p>
-			<h2 class="section__title" id="how-title">{{t.how.title}}</h2>
-		</header>
+		{{> components/rule code="PROCESS"}}
+
+		<div class="how__top">
+			<header class="section__head" data-reveal>
+				<p class="eyebrow">{{t.how.eyebrow}}</p>
+				<h2 class="section__title" id="how-title">{{t.how.title}}</h2>
+			</header>
+
+			{{> components/vin-plate}}
+		</div>
 
 		<ol class="steps">
 			{{#each t.how.steps}}

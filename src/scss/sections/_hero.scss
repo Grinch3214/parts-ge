@@ -1,27 +1,82 @@
 @use "../mixins" as m;
 
+// Dark "workshop / blueprint" hero — the one loud section; the rest of the page stays calm.
 .hero {
 	position: relative;
 	isolation: isolate;
-	padding: 2.4rem 0 6.4rem;
+	padding: 2.4rem 0 5.6rem;
 	overflow: hidden;
+	background: var(--c-dark);
+	color: var(--c-dark-ink);
 
 	@include m.lg {
-		padding: 6.4rem 0 10.4rem;
+		padding: 6.4rem 0 9.6rem;
 	}
 
-	// Faint technical grid, fading out — a drafting-paper hint, not decoration for its own sake
+	// Blueprint paper: minor + major grid, fading towards the edges
 	&::before {
 		content: '';
 		position: absolute;
 		inset: 0;
+		z-index: -2;
+		@include m.blueprint-grid;
+		-webkit-mask-image: radial-gradient(ellipse 85% 75% at 35% 40%, #000 30%, transparent 85%);
+		mask-image: radial-gradient(ellipse 85% 75% at 35% 40%, #000 30%, transparent 85%);
+	}
+
+	&__backdrop {
+		position: absolute;
+		inset: 0;
 		z-index: -1;
-		background-image:
-			linear-gradient(to right, rgba(18, 20, 23, .045) 1px, transparent 1px),
-			linear-gradient(to bottom, rgba(18, 20, 23, .045) 1px, transparent 1px);
-		background-size: 4rem 4rem;
-		-webkit-mask-image: radial-gradient(ellipse 70% 55% at 25% 15%, #000 15%, transparent 75%);
-		mask-image: radial-gradient(ellipse 70% 55% at 25% 15%, #000 15%, transparent 75%);
+		pointer-events: none;
+	}
+
+	// Mobile: one compact visual tucked behind the headline, top right.
+	// Desktop: a large drawing bleeding off the bottom-left edge.
+	&__drawing {
+		position: absolute;
+		z-index: -1;
+		top: -2rem;
+		right: -11rem;
+		width: 32rem;
+		opacity: .45;
+		pointer-events: none;
+
+		@include m.md {
+			top: -4rem;
+			right: -8rem;
+			width: 44rem;
+		}
+
+		// In the flow under the text; the hero (overflow: hidden) crops it left and bottom
+		@include m.lg {
+			position: relative;
+			top: auto;
+			right: auto;
+			width: 76rem;
+			margin: 1.6rem 0 -44rem -22rem;
+			opacity: 1;
+		}
+
+		@include m.xl {
+			margin-left: -16rem;
+		}
+	}
+
+	&__coords {
+		display: none;
+		position: absolute;
+		right: 3.2rem;
+		bottom: 2.4rem;
+		color: var(--c-dark-ink-2);
+		font-family: var(--font-mono);
+		font-size: 1.1rem;
+		letter-spacing: .14em;
+		opacity: .7;
+
+		@include m.lg {
+			display: block;
+		}
 	}
 
 	&__grid {
@@ -40,7 +95,7 @@
 	}
 
 	&__eyebrow {
-		color: var(--c-ink-2);
+		color: var(--c-dark-ink-2);
 
 		&::before {
 			background: var(--c-accent);
@@ -48,17 +103,22 @@
 	}
 
 	&__title {
-		font-size: clamp(3.4rem, 2.2rem + 4vw, 6.4rem);
+		color: #fff;
+		font-size: clamp(3.6rem, 2.2rem + 4.4vw, 6.8rem);
 		font-weight: 700;
-		line-height: 1.02;
+		line-height: 1;
 		letter-spacing: -.035em;
 		text-wrap: balance;
+	}
+
+	&__accent {
+		color: var(--c-accent);
 	}
 
 	&__lead {
 		max-width: 50rem;
 		margin-top: 1.6rem;
-		color: var(--c-ink-2);
+		color: var(--c-dark-ink-2);
 		font-size: 1.7rem;
 		text-wrap: pretty;
 
@@ -82,6 +142,7 @@
 			display: flex;
 			align-items: center;
 			gap: 1.2rem;
+			color: var(--c-dark-ink);
 			font-size: 1.6rem;
 		}
 
@@ -91,7 +152,35 @@
 	}
 
 	&__form {
+		position: relative;
 		scroll-margin-top: calc(var(--header-h) + 1.6rem);
+
+		// Registration marks at the form corners — a drafting-sheet detail
+		@include m.lg {
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				width: 1.8rem;
+				height: 1.8rem;
+				border: 0 solid var(--c-accent);
+				pointer-events: none;
+			}
+
+			&::before {
+				top: -1.2rem;
+				left: -1.2rem;
+				border-top-width: 2px;
+				border-left-width: 2px;
+			}
+
+			&::after {
+				right: -1.2rem;
+				bottom: -1.2rem;
+				border-right-width: 2px;
+				border-bottom-width: 2px;
+			}
+		}
 	}
 
 	// Load-in: once, short, only the first screen
@@ -104,9 +193,57 @@
 		&__intro > :nth-child(3) { animation-delay: .12s; }
 		&__intro > :nth-child(4) { animation-delay: .18s; }
 		&__intro > :nth-child(5) { animation-delay: .24s; }
+		&__intro > .hero__drawing { animation: none; }
 
 		&__form {
 			animation: rise .7s .1s var(--ease-out) both;
+		}
+	}
+}
+
+// VIN → Search → Price → Delivery
+.pipeline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 2.6rem;
+	margin-top: 2.4rem;
+
+	@include m.lg {
+		margin-top: 3.2rem;
+	}
+
+	&__step {
+		position: relative;
+		padding: .7rem 1rem;
+		border: 1px solid var(--c-dark-line);
+		border-radius: 4px;
+		background: rgba(255, 255, 255, .03);
+		color: var(--c-dark-ink);
+		font-family: var(--font-mono);
+		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+
+		// The step the visitor does right now
+		&:first-child {
+			border-color: var(--c-accent);
+			background: var(--c-accent);
+			color: var(--c-ink);
+		}
+
+		&:not(:last-child)::after {
+			content: '→';
+			position: absolute;
+			top: 50%;
+			right: -2rem;
+			color: var(--c-accent);
+			transform: translateY(-50%);
+		}
+
+		@include m.motion {
+			animation: rise .5s var(--ease-out) both;
+			animation-delay: calc(.35s + var(--i) * 110ms);
 		}
 	}
 }

@@ -27,6 +27,13 @@ export function validateVin(vin) {
 	return null
 }
 
+// The car must be identifiable: a valid VIN, or — if there is no VIN at hand — make/model/year.
+// An entered VIN is always validated, even when the car field is filled too.
+export function validateVehicle(vin, car) {
+	if (!vin) return String(car ?? '').trim().length >= 3 ? null : 'vinRequired'
+	return validateVin(vin)
+}
+
 export function validatePart(value) {
 	return String(value ?? '').trim().length >= 2 ? null : 'partRequired'
 }

@@ -70,7 +70,7 @@
 			&::before {
 				content: counter(step, decimal-leading-zero);
 				padding-top: .2rem;
-				color: var(--c-accent);
+				color: var(--c-accent-ink);
 				font-family: var(--font-mono);
 				font-size: 1.3rem;
 				font-weight: 600;

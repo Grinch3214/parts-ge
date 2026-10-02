@@ -57,12 +57,21 @@ b {
 
 ::selection {
 	background: var(--c-accent);
-	color: #fff;
+	color: var(--c-ink);
 }
 
 :focus-visible {
-	outline: 2px solid var(--c-accent);
+	outline: 2px solid var(--c-focus);
 	outline-offset: 2px;
+}
+
+// Dark areas: bright accent is the visible focus colour there
+.header,
+.hero,
+.auction,
+.trust-card,
+.final-cta__card {
+	--c-focus: var(--c-accent);
 }
 
 .icon {
@@ -81,7 +90,11 @@ b {
 	width: 100%;
 	max-width: 124rem;
 	margin: 0 auto;
-	padding: 0 1.6rem;
+	padding: 0 1.2rem; // narrow phones: cards have their own padding, don't double the gutter
+
+	@include m.sm {
+		padding: 0 1.6rem;
+	}
 
 	@include m.md {
 		padding: 0 3.2rem;

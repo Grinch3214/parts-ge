@@ -23,7 +23,7 @@ export function buildCard(request) {
 	const lines = [
 		`<b>🆕 Заявка № ${escapeHtml(request.id)}</b>`,
 		'',
-		`🚗 VIN: <code>${escapeHtml(request.vin)}</code>`,
+		request.vin ? `🚗 VIN: <code>${escapeHtml(request.vin)}</code>` : '🚗 VIN: <i>не указан — см. «Авто»</i>',
 		`🔧 ${escapeHtml(request.part)}`,
 		`☎️ ${METHOD_LABELS[request.contactMethod] ?? 'Контакт'}: ${escapeHtml(request.contact)}`,
 	]

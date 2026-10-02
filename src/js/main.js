@@ -5,6 +5,7 @@ import initRequestForm from './modules/request-form.js'
 import initFaq from './modules/faq.js'
 import initFloatingActions from './modules/floating-actions.js'
 import initNavigation from './modules/navigation.js'
+import initParallax from './modules/parallax.js'
 
 initHeader()
 initNavigation()
@@ -12,3 +13,4 @@ initRequestForm()
 initFaq()
 initReveal()
 initFloatingActions()
+initParallax()

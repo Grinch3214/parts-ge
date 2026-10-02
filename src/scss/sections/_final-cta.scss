@@ -1,0 +1,88 @@
+@use "../mixins" as m;
+
+// Closing call to action — replaces a contacts block: the form is the only way in.
+.final-cta {
+	padding-top: 0;
+
+	&__card {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		gap: 3.2rem;
+		padding: 3.2rem 2rem;
+		overflow: hidden;
+		border-radius: var(--radius-lg);
+		background: var(--c-dark);
+		color: var(--c-dark-ink);
+
+		// Same blueprint paper as the hero — the page ends where it started
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			z-index: -1;
+			@include m.blueprint-grid(.03, .06);
+			-webkit-mask-image: radial-gradient(ellipse 80% 90% at 20% 30%, #000 20%, transparent 80%);
+			mask-image: radial-gradient(ellipse 80% 90% at 20% 30%, #000 20%, transparent 80%);
+		}
+
+		@include m.md {
+			padding: 4rem;
+		}
+
+		@include m.lg {
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+			align-items: center;
+			gap: 6.4rem;
+			padding: 5.6rem;
+		}
+
+		.eyebrow {
+			color: var(--c-dark-ink-2);
+
+			&::before {
+				background: var(--c-accent);
+			}
+		}
+
+		.section__title {
+			color: #fff;
+		}
+	}
+
+	&__text {
+		max-width: 48rem;
+		margin-top: 1.6rem;
+		color: var(--c-dark-ink-2);
+		font-size: 1.7rem;
+		text-wrap: pretty;
+	}
+
+	&__points {
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+		margin-bottom: 2.8rem;
+
+		li {
+			display: flex;
+			align-items: flex-start;
+			gap: 1rem;
+			font-size: 1.6rem;
+		}
+
+		.icon {
+			margin-top: .2rem;
+			color: var(--c-accent);
+		}
+	}
+
+	&__city {
+		display: flex;
+		align-items: center;
+		gap: .8rem;
+		margin-top: 2rem;
+		color: var(--c-dark-ink-2);
+		font-size: 1.4rem;
+	}
+}

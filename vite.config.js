@@ -23,7 +23,7 @@ const pages = Object.fromEntries(
 	})
 )
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
 	// All vars from .env / .env.local (not only VITE_*) — used by the local /api/request only
 	const env = loadEnv(mode, __dirname, '')
 
@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
 		plugins: [
 			handlebars({
 				partialDirectory: path.resolve(__dirname, 'src/partials'),
-				context: createPageContext(__dirname),
+				context: createPageContext(__dirname, { isDev: command === 'serve' }),
 				helpers: {
 					// Safe for <script type="application/ld+json"> and <script type="application/json">
 					json: value => JSON.stringify(value ?? null).replace(/</g, '\\u003c'),

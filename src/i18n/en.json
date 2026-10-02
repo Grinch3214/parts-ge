@@ -12,13 +12,20 @@
     "how": "How it works",
     "delivery": "Delivery",
     "faq": "FAQ",
-    "contacts": "Contacts",
     "cta": "Find my part"
   },
   "hero": {
     "eyebrow": "Batumi · sourced by VIN",
-    "title": "Car parts in Batumi",
+    "title": "Car parts",
+    "titleAccent": "in Batumi",
     "lead": "Send your VIN and tell us which part you need. We’ll find the right options and send you the price and delivery time.",
+    "pipelineLabel": "How it works",
+    "pipeline": [
+      "VIN",
+      "Search",
+      "Price",
+      "Delivery"
+    ],
     "trust": [
       {
         "icon": "clock",
@@ -53,13 +60,13 @@
   },
   "form": {
     "title": "Part request",
-    "subtitle": "Three fields — we’ll figure out the rest",
+    "subtitle": "Three fields — we’ll get back to you",
     "vinLabel": "Vehicle VIN",
     "vinPlaceholder": "e.g. JTDKN3DU5A0123456",
     "vinWhere": "Where is my VIN?",
     "vinWhereText": "On the vehicle registration certificate, under the windshield on the driver’s side, or on the driver’s door pillar.",
     "noVin": "No VIN at hand?",
-    "noVinLink": "Message us on WhatsApp",
+    "noVinLink": "Enter make, model and year",
     "partLabel": "Which part do you need?",
     "partPlaceholder": "e.g. front left headlight, front bumper, brake pads",
     "contactLegend": "Where should we send the options?",
@@ -104,7 +111,7 @@
     "note": "We usually reply within 30 minutes. You don’t pay anything until you approve the price.",
     "remove": "Remove",
     "errors": {
-      "vinRequired": "Enter the vehicle VIN",
+      "vinRequired": "Enter the VIN — or make, model and year under “More details”",
       "vinLength": "A VIN has 17 characters, you’ve entered {n}",
       "vinChars": "A VIN never contains I, O or Q. It’s most likely 1 or 0",
       "partRequired": "Tell us which part you need",
@@ -114,11 +121,11 @@
       "fileTooBig": "The file is larger than 10 MB — please choose a smaller photo",
       "fileType": "Photos or PDF files only",
       "tooManyFiles": "You can add up to 5 photos",
-      "filesTooLarge": "The photos are too large to send. Remove some of them or send them to us on WhatsApp after the request.",
+      "filesTooLarge": "The photos are too large to send. Remove some — our manager will ask for the rest in the chat.",
       "summary": "Please check the highlighted fields.",
       "network": "We couldn’t send your request. Check your connection and try again — your answers are saved.",
-      "rateLimit": "Too many requests in a row. Please wait a couple of minutes or message us on WhatsApp.",
-      "server": "Something went wrong on our side. Please try again or message us on WhatsApp."
+      "rateLimit": "Too many requests in a row. Please wait a couple of minutes and try again.",
+      "server": "Something went wrong on our side. Please try again in a minute — your answers are saved."
     }
   },
   "success": {
@@ -130,8 +137,7 @@
       "We send you options with price and delivery time via your messenger",
       "You choose. Payment only after you approve"
     ],
-    "again": "Send another request",
-    "question": "Questions? Message us on WhatsApp"
+    "again": "Send another request"
   },
   "how": {
     "eyebrow": "How it works",
@@ -239,7 +245,7 @@
       "Lexus NX"
     ],
     "more": "and other makes",
-    "cta": "Find my part",
+    "cta": "Send your VIN",
     "card": {
       "label": "Sample request",
       "rows": [
@@ -270,11 +276,34 @@
       ]
     }
   },
+  "reviews": {
+    "eyebrow": "Reviews",
+    "title": "What customers say",
+    "ratingLabel": "Rated 5 out of 5",
+    "placeholderNote": "Placeholder: sample reviews are visible in dev only and never published. Replace them with real Google reviews and set reviews.enabled in src/data/site.json.",
+    "items": [
+      {
+        "name": "Giorgi",
+        "car": "Toyota Camry 2018 · USA",
+        "text": "I needed a headlight for a US-spec Camry and couldn’t find one in Batumi. Sent the VIN, got two options in 20 minutes, and the light was fitted three days later."
+      },
+      {
+        "name": "Anna",
+        "car": "Lexus RX 350",
+        "text": "I liked that they didn’t ask for money upfront. They found the part and quoted the price first — payment only after I agreed."
+      },
+      {
+        "name": "Dmitry",
+        "car": "Hyundai Sonata 2016",
+        "text": "Got pads and discs. They offered OEM and aftermarket; I took aftermarket and saved almost half. Everything fitted first time."
+      }
+    ]
+  },
   "faq": {
     "eyebrow": "FAQ",
     "title": "Frequently asked questions",
     "aside": "Didn’t find your answer?",
-    "asideLink": "Message us on WhatsApp",
+    "asideLink": "Send a request — we’ll clarify everything in the chat",
     "items": [
       {
         "q": "How does it work?",
@@ -282,7 +311,7 @@
       },
       {
         "q": "Can you find a part by VIN?",
-        "a": "Yes, that’s our main method. The VIN shows the exact configuration of the car, so the risk of a mismatch is minimal. No VIN at hand? Message us on WhatsApp and we’ll sort it out together."
+        "a": "Yes, that’s our main method. The VIN shows the exact configuration of the car, so the risk of a mismatch is minimal. No VIN at hand? Enter make, model and year in the request — our manager will ask for the VIN or a registration photo in the chat."
       },
       {
         "q": "Can I order an OEM part?",
@@ -310,14 +339,17 @@
       }
     ]
   },
-  "contacts": {
-    "eyebrow": "Contacts",
-    "title": "Prefer not to fill in a form?",
-    "text": "Message us directly — send the VIN and the part name in any messenger.",
-    "phoneLabel": "Phone",
-    "cta": "Get a part quote",
-    "city": "Batumi, Georgia",
-    "waText": "Hello! I need a car part. VIN: "
+  "finalCta": {
+    "eyebrow": "Request",
+    "title": "No need to look for us in messengers",
+    "text": "Send a request — we’ll find the right part and contact you ourselves in your preferred messenger.",
+    "points": [
+      "We usually reply within 30 minutes",
+      "No payment until you approve the price",
+      "Matched by VIN — no trim mix-ups"
+    ],
+    "cta": "Get a price",
+    "city": "Batumi, Georgia"
   },
   "footer": {
     "tagline": "Car parts sourcing and delivery in Batumi"

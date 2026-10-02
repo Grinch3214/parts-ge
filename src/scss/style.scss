@@ -14,13 +14,16 @@
 @use "components/upload";
 @use "components/success";
 @use "components/floating";
+@use "components/rule";
 
 @use "sections/hero";
+@use "sections/drawing";
 @use "sections/vin-plate";
 @use "sections/steps";
 @use "sections/benefits";
 @use "sections/delivery";
 @use "sections/auction";
+@use "sections/reviews";
 @use "sections/faq";
-@use "sections/contacts";
+@use "sections/final-cta";
 @use "sections/footer";

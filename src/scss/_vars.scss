@@ -16,11 +16,12 @@
 	--c-line: #e2e0d9;
 	--c-line-strong: #cbc8bf;
 
-	// Accent — signal orange, used sparingly (CTA, numbers, key marks)
-	--c-accent: #c2410c;
-	--c-accent-hover: #a5370a;
+	--c-accent: #ff6a13; // signal orange: fills, lines, CTA, anything on dark
+	--c-accent-hover: #ff8638;
+	--c-accent-ink: #c2410c; // accent for text / thin icons on light backgrounds (contrast)
 	--c-accent-soft: #fbeee6;
-	--c-accent-on-dark: #f08a5d;
+	--c-accent-on-dark: #ff7a2e;
+	--c-focus: var(--c-accent-ink);
 
 	// States
 	--c-success: #1d7a46;
