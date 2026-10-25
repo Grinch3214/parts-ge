@@ -80,7 +80,7 @@ export default function initRequestForm() {
 	// fallback: also offer WhatsApp — for send failures, so the request is never lost
 	function showAlert(message, { fallback = false } = {}) {
 		els.alertText.textContent = message
-		els.alertFallback.hidden = !fallback
+		if (els.alertFallback) els.alertFallback.hidden = !fallback
 		els.alert.hidden = false
 	}
 

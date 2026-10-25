@@ -119,7 +119,9 @@
 			<div>
 				<p data-alert-text></p>
 				{{!-- Shown for send failures, so the request is never lost --}}
-				<a class="form-alert__link" href="{{links.whatsapp}}" target="_blank" rel="noopener" data-alert-fallback hidden>{{t.contact.fallback}}{{!-- TODO: phone number hidden until the real one is set: <span>{{site.phoneDisplay}}</span> --}}</a>
+				{{!-- TODO: WhatsApp fallback hidden until the real number is set
+				<a class="form-alert__link" href="{{links.whatsapp}}" target="_blank" rel="noopener" data-alert-fallback hidden>{{t.contact.fallback}}: <span>{{site.phoneDisplay}}</span></a>
+				--}}
 			</div>
 		</div>
 
