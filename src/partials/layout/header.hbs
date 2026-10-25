@@ -9,9 +9,11 @@
 		</nav>
 
 		<div class="header__actions">
+			{{!-- TODO: phone number hidden until the real one is set
 			<a class="header__phone" href="{{links.whatsapp}}" target="_blank" rel="noopener" aria-label="{{t.contact.whatsapp}}: {{site.phoneDisplay}}">
 				{{> components/icon name="whatsapp"}}<span>{{site.phoneDisplay}}</span>
 			</a>
+			--}}
 			{{> components/lang-switch}}
 			<a class="btn btn--primary btn--sm header__cta" href="#request" data-to-form>{{t.nav.cta}}</a>
 		</div>

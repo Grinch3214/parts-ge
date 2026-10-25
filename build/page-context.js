@@ -63,7 +63,8 @@ export function createPageContext(root, { isDev = false } = {}) {
         name: site.name,
         url: canonical,
         description: t.meta.description,
-        telephone: site.phone,
+        // TODO: phone number hidden until the real one is set
+        // telephone: site.phone,
         image: `${base}/og.png`,
         address: {
           '@type': 'PostalAddress',

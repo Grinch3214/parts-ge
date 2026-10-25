@@ -1,92 +1,92 @@
-# BatumiParts.ge — лендинг подбора автозапчастей в Батуми
+# BatumiParts.ge — auto parts sourcing landing page in Batumi
 
-Одностраничник с заявкой на подбор запчасти по VIN.
+A single-page site with a request form for finding a part by VIN.
 
-Стек: Vite 8 + Handlebars-partials + SCSS, без фреймворков. JS ~5 КБ gzip.
+Stack: Vite 8 + Handlebars partials + SCSS, no frameworks. JS ~5 KB gzip.
 
 ```bash
 npm install
-npm run dev       # dev-сервер + mock /api/request
-npm run build     # статика в dist/
-npm run preview   # проверить сборку (mock API тоже работает)
+npm run dev       # dev server + mock /api/request
+npm run build     # static output to dist/
+npm run preview   # check the build (mock API works too)
 ```
 
-## Где что менять
+## What to change where
 
-| Что | Где |
+| What | Where |
 | --- | --- |
-| Тексты (RU / UA / EN) | `src/i18n/ru.json`, `uk.json`, `en.json` |
-| Сроки доставки (текст) | `src/i18n/*.json` → `delivery.items` |
-| Длина полосок сроков (0–1, `0` = «уточняем») | `src/data/site.json` → `delivery` |
-| Домен, название | `src/data/site.json` |
-| Цвета, шрифты, радиусы | `src/scss/_vars.scss` |
-| Разметка секций | `src/partials/sections/*.hbs` |
-| Иконки (SVG-спрайт) | `src/partials/layout/icons.hbs` |
+| Texts (RU / UA / EN) | `src/i18n/ru.json`, `uk.json`, `en.json` |
+| Delivery times (text) | `src/i18n/*.json` → `delivery.items` |
+| Delivery time bar length (0–1, `0` = "to be confirmed") | `src/data/site.json` → `delivery` |
+| Domain, name | `src/data/site.json` |
+| Colors, fonts, radii | `src/scss/_vars.scss` |
+| Section markup | `src/partials/sections/*.hbs` |
+| Icons (SVG sprite) | `src/partials/layout/icons.hbs` |
 
-После смены домена обновить также `public/robots.txt` и `public/sitemap.xml`.
-OG-картинка: `node scripts/generate-og.mjs` → `public/og.png`.
+After changing the domain, also update `public/robots.txt` and `public/sitemap.xml`.
+OG image: `node scripts/generate-og.mjs` → `public/og.png`.
 
-## Языки
+## Languages
 
-Каждый язык — отдельная статическая страница (лучше для SEO): `/` — RU, `/uk/`, `/en/`.
-Список языков — `build/page-context.js` → `LOCALES`. Чтобы добавить язык: добавить его в `LOCALES`,
-создать `src/i18n/<code>.json` и `<code>/index.html` (копия корневого `index.html`).
+Each language is a separate static page (better for SEO): `/` — RU, `/uk/`, `/en/`.
+The language list is in `build/page-context.js` → `LOCALES`. To add a language: add it to `LOCALES`,
+create `src/i18n/<code>.json` and `<code>/index.html` (a copy of the root `index.html`).
 
-## Структура
+## Structure
 
 ```plaintext
-build/page-context.js      # данные для шаблонов: язык, тексты, ссылки, schema.org
-server/mock-api.js         # локальный mock эндпоинта заявок (только dev/preview)
+build/page-context.js      # template data: language, texts, links, schema.org
+server/mock-api.js         # local mock of the request endpoint (dev/preview only)
 src/
-├── i18n/                  # тексты по языкам
-├── data/site.json         # контакты и настройки, общие для всех языков
+├── i18n/                  # texts per language
+├── data/site.json         # contacts and settings shared across all languages
 ├── partials/
 │   ├── layout/            # head, header, footer, page, icons
 │   ├── sections/          # hero, how-it-works, benefits, delivery, auction-cars, reviews, faq, final-cta
 │   └── components/        # request-form, vin-plate, lang-switch, floating-actions, logo, icon
 ├── js/
 │   ├── config.js          # VITE_API_ENDPOINT, VITE_TURNSTILE_SITE_KEY
-│   └── modules/           # request-form, validation (общая с сервером), file-picker, draft, faq, ...
+│   └── modules/           # request-form, validation (shared with the server), file-picker, draft, faq, ...
 └── scss/                  # _vars, _global, components/, sections/
 ```
 
-## Форма и бэкенд
+## Form and backend
 
-Схема: сайт → `/api/request` (Netlify Function) → Telegram-бот → группа. **Токен бота живёт только на сервере.**
+Flow: site → `/api/request` (Netlify Function) → Telegram bot → group. **The bot token lives on the server only.**
 
-| Файл | Роль |
+| File | Role |
 | --- | --- |
-| `server/handle-request.js` | Вся логика эндпоинта: лимит, антиспам, Turnstile, валидация, номер заявки. Там же описан контракт ответов |
-| `server/telegram.js` | Карточка заявки + фото в группу через Bot API |
-| `netlify/functions/request.mjs` | Обёртка для Netlify (production) |
-| `server/telegram-webhook.js` + `netlify/functions/telegram-webhook.mjs` | Кнопки под карточкой: «Взял в работу» / «Обработана». Статус хранится в тексте карточки |
-| `server/mock-api.js` | То же для `npm run dev` / `preview`. Без секретов — только лог в консоль |
+| `server/handle-request.js` | All endpoint logic: rate limit, anti-spam, Turnstile, validation, request number. The response contract is documented there too |
+| `server/telegram.js` | Sends the request card + photos to the group via the Bot API |
+| `netlify/functions/request.mjs` | Netlify wrapper (production) |
+| `server/telegram-webhook.js` + `netlify/functions/telegram-webhook.mjs` | Buttons under the card: "Taken" / "Done". The status is stored in the card text |
+| `server/mock-api.js` | The same for `npm run dev` / `preview`. No secrets — just logs to the console |
 
-Фото сжимаются в браузере (до 1920px, JPEG) — лимит тела запроса у Netlify 6 МБ.
+Photos are compressed in the browser (up to 1920px, JPEG) — Netlify's request body limit is 6 MB.
 
-### Переменные окружения
+### Environment variables
 
-Локально — `.env.local` (шаблон: `.env.example`), на Netlify — Site configuration → Environment variables.
+Locally — `.env.local` (template: `.env.example`); on Netlify — Site configuration → Environment variables.
 
-| Переменная | Где | Зачем |
+| Variable | Where | Purpose |
 | --- | --- | --- |
-| `TELEGRAM_BOT_TOKEN` | сервер | токен от @BotFather |
-| `TELEGRAM_CHAT_ID` | сервер | ID группы (`npm run tg:chat-id`) |
-| `TELEGRAM_WEBHOOK_SECRET` | сервер | защищает `/api/telegram-webhook` (кнопки статуса) |
-| `TURNSTILE_SECRET_KEY` | сервер | необязательно, проверка капчи |
-| `VITE_TURNSTILE_SITE_KEY` | браузер | необязательно, показ капчи |
-| `SITE_URL` | сборка | необязательно; на Netlify подставляется сам |
+| `TELEGRAM_BOT_TOKEN` | server | token from @BotFather |
+| `TELEGRAM_CHAT_ID` | server | group ID (`npm run tg:chat-id`) |
+| `TELEGRAM_WEBHOOK_SECRET` | server | protects `/api/telegram-webhook` (status buttons) |
+| `TURNSTILE_SECRET_KEY` | server | optional, captcha verification |
+| `VITE_TURNSTILE_SITE_KEY` | browser | optional, shows the captcha |
+| `SITE_URL` | build | optional; set automatically on Netlify |
 
-`npm run tg:test` — отправить тестовую заявку в группу.
-`npm run tg:webhook -- https://<сайт>` — включить кнопки статуса (после деплоя); `-- --delete` — выключить.
+`npm run tg:test` — send a test request to the group.
+`npm run tg:webhook -- https://<site>` — enable the status buttons (after deploy); `-- --delete` — disable them.
 
-### Деплой (Cloudflare Pages — основной)
+### Deploy (Cloudflare Pages — primary)
 
-Build command `npm run build`, output `dist`, переменная `NODE_VERSION=22`. Серверные функции — `functions/api/*.js` (тонкие обёртки над `server/`). Секреты — Pages → Settings → Variables and Secrets. Каждый `git push` деплоит.
+Build command `npm run build`, output `dist`, variable `NODE_VERSION=22`. Server functions are in `functions/api/*.js` (thin wrappers over `server/`). Secrets — Pages → Settings → Variables and Secrets. Every `git push` deploys.
 
-### Деплой (Netlify — тестовый, можно удалить после переезда)
+### Deploy (Netlify — testing, can be removed after the migration)
 
-Настройки сборки — в `netlify.toml`. Подключить репозиторий в Netlify → задать переменные → каждый `git push` деплоит.
-Пока сайт открыт не на основном домене (`site.json → url`), страницы помечаются `noindex`.
+Build settings are in `netlify.toml`. Connect the repository in Netlify → set the variables → every `git push` deploys.
+While the site is served from a domain other than the main one (`site.json → url`), pages are marked `noindex`.
 
-Черновик формы хранится в `localStorage` (кроме файлов) и очищается после успешной отправки.
+The form draft is stored in `localStorage` (except files) and cleared after a successful submission.
